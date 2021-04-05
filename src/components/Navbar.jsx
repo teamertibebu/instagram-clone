@@ -14,10 +14,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import HomeIcon from '@material-ui/icons/Home';
 import EmailIcon from '@material-ui/icons/Email';
 import SearchIcon from '@material-ui/icons/Search';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import { makeStyles } from '@material-ui/core/styles';
+import Modal from './Modal';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const open = Boolean(anchorEl);
 
   const handleAccount = (event) => {
@@ -28,9 +31,13 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+  const handleModal = () => {
+    setShowModal(true);
+  };
+
   const useStyles = makeStyles((theme) => ({
     inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
+      padding: theme.spacing(0, 1, 0, 0),
       width: '50%',
       paddingLeft: '25px',
       border: '1px solid lightgrey',
@@ -40,7 +47,7 @@ const Navbar = () => {
     },
     searchIcon: {
       position: 'absolute',
-      padding: theme.spacing(1.5, 0.2, 3, 13),
+      padding: theme.spacing(0.5, 0.2, 3, 13),
       zIndex: '1',
     },
     search: {
@@ -57,8 +64,7 @@ const Navbar = () => {
       },
     },
     typo: {
-      paddingTop: '7px',
-      // fontFamily: 'Arial',
+      paddingTop: '3px',
     },
     iconContainer: {
       display: 'flex',
@@ -95,6 +101,9 @@ const Navbar = () => {
             <Grid item xs={4} className={classes.iconContainer}>
               <Grid container spacing={0} className={classes.icons}>
                 <Grid item xs={1}>
+                  <AddBoxIcon onClick={handleModal} />
+                </Grid>
+                <Grid item xs={1}>
                   <HomeIcon />
                 </Grid>
                 <Grid item xs={1}>
@@ -109,6 +118,7 @@ const Navbar = () => {
               </Grid>
             </Grid>
           </Grid>
+          {showModal ? <Modal open={true} /> : null}
           <Menu
             // id="menu-appbar"
             anchorEl={anchorEl}
@@ -118,8 +128,8 @@ const Navbar = () => {
             }}
             keepMounted
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: 'bottom',
+              horizontal: 'left',
             }}
             open={open}
             onClose={handleAcctClose}
