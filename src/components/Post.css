@@ -27,6 +27,10 @@
   font-weight: bold;
 }
 
+.Post-image {
+  display: block;
+  padding: 2%;
+}
 .Post-image img {
   display: block;
   width: 100%;

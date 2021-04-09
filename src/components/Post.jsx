@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((styles) => ({
   img: {
-    padding: '2%',
+    // padding: '2%',
   },
 }));
 

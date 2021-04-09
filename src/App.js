@@ -20,6 +20,7 @@ const useStyles = makeStyles((styles) => ({
   followers: {
     backgroundColor: 'green',
     height: '25%',
+    alignText: 'left',
   },
 }));
 
@@ -45,16 +46,16 @@ function App() {
           xl={7}
           lg={8}
           md={8}
-          sm={11}
-          xs={11}
+          sm={12}
+          xs={12}
           className={classes.post}
         >
           <Post />
         </Grid>
         <Hidden smDown>
           <Grid xl={5} lg={4} md={4} className={classes.followers} item>
-            <div>
-              <h3>Followers</h3>
+            <h3>Followers</h3>
+            <div style={{ textAlign: 'left' }}>
               <p>Hello</p>
               <p>Hello</p>
               <p>Hello</p>
