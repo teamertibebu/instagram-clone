@@ -16,11 +16,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import SearchIcon from '@material-ui/icons/Search';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from './Modal';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const open = Boolean(anchorEl);
 
   const handleAccount = (event) => {
@@ -29,10 +27,6 @@ const Navbar = () => {
 
   const handleAcctClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleModal = () => {
-    setShowModal(true);
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -101,7 +95,7 @@ const Navbar = () => {
             <Grid item xs={4} className={classes.iconContainer}>
               <Grid container spacing={0} className={classes.icons}>
                 <Grid item xs={1}>
-                  <AddBoxIcon onClick={handleModal} />
+                  <AddBoxIcon />
                 </Grid>
                 <Grid item xs={1}>
                   <HomeIcon />
@@ -118,7 +112,6 @@ const Navbar = () => {
               </Grid>
             </Grid>
           </Grid>
-          {showModal ? <Modal open={true} /> : null}
           <Menu
             // id="menu-appbar"
             anchorEl={anchorEl}

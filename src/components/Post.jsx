@@ -1,24 +1,29 @@
 import './Post.css';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((styles) => ({
+  img: {
+    padding: '2%',
+  },
+}));
 
 const Post = () => {
+  const classes = useStyles();
+
   return (
-    <article className="Post" ref={Post}>
-      <header>
-        <div className="Post-user">
-          <div className="Post-user-avatar">
-            <img
-              src="https://www.laravelnigeria.com/img/chris.jpg"
-              alt="Chris"
-            />
-          </div>
-          <div className="Post-user-nickname">
-            <span>Chris</span>
-          </div>
+    <div>
+      <div className="Post-user">
+        <div className="Post-user-avatar">
+          <img src="https://www.laravelnigeria.com/img/chris.jpg" alt="Chris" />
         </div>
-      </header>
+        <div className="Post-user-nickname">
+          <span>Chris</span>
+        </div>
+      </div>
       <div className="Post-image">
-        <div className="Post-image-bg">
+        <div>
           <img
+            className={classes.img}
             alt="Icon Living"
             src="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg"
           />
@@ -27,7 +32,7 @@ const Post = () => {
       <div className="Post-caption">
         <strong>Chris</strong> Moving the community!
       </div>
-    </article>
+    </div>
   );
 };
 export default Post;
