@@ -7,21 +7,29 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((styles) => ({
   postContainer: {
+    backgroundColor: 'black',
+
     position: 'absolute',
     border: '2px solid lightgrey',
-    // backgroundColor: 'red',
+    //   // backgroundColor: 'red',
     padding: '8%',
     justifyContent: 'center',
   },
   post: {
-    // backgroundColor: 'purple',
+    backgroundColor: 'purple',
     border: '1px solid lightgrey',
   },
   followers: {
     backgroundColor: 'green',
-    height: '25%',
-    alignText: 'left',
+    position: 'fixed',
+    minWidth: '300px',
   },
+
+  // scrollable: {
+  //   height: '100vh',
+  //   overflowY: 'scroll',
+  //   overflowX: 'auto',
+  // },
 }));
 
 function App() {
@@ -34,36 +42,35 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-
-      <Grid
-        container
-        spacing={1}
-        direction="row"
-        className={classes.postContainer}
-      >
-        <Grid
-          item
-          xl={7}
-          lg={8}
-          md={8}
-          sm={12}
-          xs={12}
-          className={classes.post}
-        >
-          <Post />
-        </Grid>
-        <Hidden smDown>
-          <Grid xl={5} lg={4} md={4} className={classes.followers} item>
-            <h3>Followers</h3>
-            <div style={{ textAlign: 'left' }}>
-              <p>Hello</p>
-              <p>Hello</p>
-              <p>Hello</p>
-              <p>Hello</p>
-              <p>Hello</p>
-            </div>
+      <Grid container className={classes.postContainer}>
+        <Grid container direction="column" item xs={8}>
+          <Grid item className={classes.post}>
+            <Post />
           </Grid>
-        </Hidden>
+          <Grid item className={classes.post}>
+            <Post />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          className={classes.sticky}
+          direction="column"
+          item
+          xs={4}
+        >
+          <Hidden smDown>
+            <Grid className={classes.followers} item>
+              <h3>Followers</h3>
+              <div>
+                <p>Hello</p>
+                <p>Hello</p>
+                <p>Hello</p>
+                <p>Hello</p>
+                <p>Hello</p>
+              </div>
+            </Grid>
+          </Hidden>
+        </Grid>
       </Grid>
     </div>
   );
