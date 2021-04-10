@@ -7,43 +7,37 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((styles) => ({
   postContainer: {
-    backgroundColor: 'black',
-
-    position: 'absolute',
+    display: 'flex',
+    // backgroundColor: 'black',
     border: '2px solid lightgrey',
-    //   // backgroundColor: 'red',
     padding: '8%',
     justifyContent: 'center',
   },
   post: {
-    backgroundColor: 'purple',
+    // backgroundColor: 'purple',
     border: '1px solid lightgrey',
+    boxShadow: ' 2px 5px 1em 0.1em rgb(211,211,211, 0.5)',
   },
   followers: {
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     position: 'fixed',
-    minWidth: '300px',
+    minWidth: '340px',
+    // border: '1px solid lightgrey',
   },
-
-  // scrollable: {
-  //   height: '100vh',
-  //   overflowY: 'scroll',
-  //   overflowX: 'auto',
-  // },
+  root: {
+    // backgroundColor: 'brown',
+    flexBasis: '25%',
+  },
 }));
 
 function App() {
   const classes = useStyles();
 
-  axios.get('/ping').then((res) => {
-    console.log('DATA:', res.data);
-  });
-
   return (
     <div className="App">
       <Navbar />
-      <Grid container className={classes.postContainer}>
-        <Grid container direction="column" item xs={8}>
+      <Grid container className={classes.postContainer} spacing={2}>
+        <Grid container direction="column" item lg={9} md={9} sm={10} xs={10}>
           <Grid item className={classes.post}>
             <Post />
           </Grid>
@@ -53,20 +47,24 @@ function App() {
         </Grid>
         <Grid
           container
-          className={classes.sticky}
           direction="column"
           item
-          xs={4}
+          xl={3}
+          lg={3}
+          md={3}
+          classes={{
+            root: classes.root,
+          }}
         >
           <Hidden smDown>
             <Grid className={classes.followers} item>
-              <h3>Followers</h3>
-              <div>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
-                <p>Hello</p>
+              <h3 align="left">Suggestions For You</h3>
+              <div align="left">
+                <p>Hey you should follow me!</p>
+                <p>or maybe me</p>
+                <p>i'm a cool person</p>
+                <p>don't forget me</p>
+                <p>save the best for last!</p>
               </div>
             </Grid>
           </Hidden>
