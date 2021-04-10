@@ -37,7 +37,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Grid container className={classes.postContainer} spacing={2}>
-        <Grid container direction="column" item lg={9} md={9} sm={10} xs={10}>
+        <Grid container direction="column" item lg={8} md={8} sm={10} xs={10}>
           <Grid item className={classes.post}>
             <Post />
           </Grid>
