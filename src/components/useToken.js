@@ -13,8 +13,14 @@ export default function useToken() {
     setToken(userToken.token);
   };
 
+  const clearToken = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+  };
+
   return {
     setToken: saveToken,
+    clearToken,
     token,
   };
 }

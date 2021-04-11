@@ -30,12 +30,12 @@ const useStyles = makeStyles((styles) => ({
   },
 }));
 
-const Home = () => {
+const Home = ({ clearToken }) => {
   const classes = useStyles();
 
   return (
     <div>
-      <Navbar />
+      <Navbar clearToken={clearToken} />
       <Grid container className={classes.postContainer} spacing={2}>
         <Grid container direction="column" item lg={8} md={8} sm={10} xs={10}>
           <Grid item className={classes.post}>

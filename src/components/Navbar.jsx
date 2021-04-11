@@ -17,7 +17,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import { makeStyles } from '@material-ui/core/styles';
 
-const Navbar = () => {
+const Navbar = ({ clearToken }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -27,6 +27,10 @@ const Navbar = () => {
 
   const handleAcctClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    clearToken();
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -128,7 +132,7 @@ const Navbar = () => {
           >
             <MenuItem onClick={handleAcctClose}>Profile</MenuItem>
             <MenuItem onClick={handleAcctClose}>My Account</MenuItem>
-            <MenuItem>Sign Out</MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
           </Menu>
         </IconButton>
       </Toolbar>

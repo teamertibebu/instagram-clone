@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import useToken from './components/useToken.js';
 
 const App = () => {
-  const { token, setToken } = useToken();
+  const { token, setToken, clearToken } = useToken();
 
   if (!token) {
     return <Login setToken={setToken} />;
@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <div className="wrapper">
-      <Home />
+      <Home clearToken={clearToken} />
       <BrowserRouter>
         <Switch>
           <Route path="/home"></Route>
