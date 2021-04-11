@@ -113,7 +113,6 @@ const Navbar = () => {
             </Grid>
           </Grid>
           <Menu
-            // id="menu-appbar"
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: 'top',
@@ -129,6 +128,7 @@ const Navbar = () => {
           >
             <MenuItem onClick={handleAcctClose}>Profile</MenuItem>
             <MenuItem onClick={handleAcctClose}>My Account</MenuItem>
+            <MenuItem>Sign Out</MenuItem>
           </Menu>
         </IconButton>
       </Toolbar>
