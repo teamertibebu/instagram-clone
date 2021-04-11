@@ -21,11 +21,12 @@ const useStyles = makeStyles((styles) => ({
   followers: {
     // backgroundColor: 'green',
     position: 'fixed',
+    display: 'fixed',
     minWidth: '340px',
     // border: '1px solid lightgrey',
   },
   root: {
-    // backgroundColor: 'brown',
+    backgroundColor: 'brown',
     flexBasis: '25%',
   },
 }));
