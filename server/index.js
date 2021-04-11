@@ -5,13 +5,22 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors());
-
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/login', (req, res) => {
   res.send({
     token: 'test123',
   });
+});
+
+app.post('/createAccount', (req, res) => {
+  // res.send({
+  //   token: 'test123',
+  // });
+  console.log(req.body);
+  res.send('success');
 });
 
 app.get('/', (req, res) => {
