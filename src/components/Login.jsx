@@ -49,10 +49,8 @@ const Login = ({ setToken }) => {
         },
         setToken
       );
-    } else {
-      console.log('user unavailable');
     }
-  }, [userAvailable]);
+  }, [userAvailable, username, password, setToken]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,6 +107,11 @@ const Login = ({ setToken }) => {
         <div>
           <button type="submit">Submit</button>
         </div>
+        {userAvailable === false ? (
+          <p style={{ color: 'red' }}>
+            Username is not available. Please try another.
+          </p>
+        ) : null}
       </form>
     </div>
   );
