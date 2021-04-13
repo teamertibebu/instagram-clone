@@ -16,6 +16,22 @@ app.use('/login', (req, res) => {
   });
 });
 
+app.post('/signIn', (req, res) => {
+  const { username, password } = req.body;
+  const query =
+    "SELECT `password` FROM `users` WHERE `name`='" + username + "'";
+
+  db.query(query, (err, results) => {
+    if (err) throw err;
+
+    if (password === results[0].password) {
+      return res.send({ passwordCorrect: true });
+    } else {
+      return res.send({ passwordCorrect: false });
+    }
+  });
+});
+
 app.post('/createAccount', (req, res) => {
   const { username, password, email, image } = req.body;
   const query =
@@ -33,18 +49,15 @@ app.post('/createAccount', (req, res) => {
     "select * from `users` where `name`='" + username + "'",
     (err, results) => {
       if (err) throw err;
-      console.log('User Already Exists', results);
 
       if (!results[0]) {
         db.query(query, (err, results) => {
           if (err) {
             console.log(err);
           }
-          console.log('inside is hit', results);
           return res.send({ available: true });
         });
       } else {
-        console.log('outside is hit');
         return res.send({ available: false });
       }
     }

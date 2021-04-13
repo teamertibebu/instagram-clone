@@ -2,22 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import useStyles from './CreateAccountStyle';
+import SignIn from '../Login/SignIn.jsx';
+import loginUser from '../HelperFunctions/loginUser.js';
 
 async function createUserAccount(info) {
   return axios
     .post('http://localhost:8080/createAccount', info)
     .then(({ data }) => data);
-}
-
-async function loginUser(credentials, setToken) {
-  const token = await fetch('http://localhost:8080/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-  setToken(token);
 }
 
 const CreateAccount = ({ setToken }) => {
@@ -59,6 +50,7 @@ const CreateAccount = ({ setToken }) => {
 
   return (
     <div className="login-wrapper">
+      <SignIn setToken={setToken} />
       <h1>Create Account</h1>
       <form onSubmit={handleSubmit}>
         <label>
