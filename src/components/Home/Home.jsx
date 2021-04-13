@@ -1,34 +1,8 @@
 import React from 'react';
 import { Grid, Hidden } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Navbar from './Navbar';
-import Post from './Post';
-
-const useStyles = makeStyles((styles) => ({
-  postContainer: {
-    display: 'flex',
-    // backgroundColor: 'black',
-    border: '2px solid lightgrey',
-    padding: '8%',
-    justifyContent: 'center',
-  },
-  post: {
-    // backgroundColor: 'purple',
-    border: '1px solid lightgrey',
-    boxShadow: ' 2px 5px 1em 0.1em rgb(211,211,211, 0.5)',
-  },
-  followers: {
-    // backgroundColor: 'green',
-    position: 'fixed',
-    display: 'fixed',
-    minWidth: '340px',
-    // border: '1px solid lightgrey',
-  },
-  root: {
-    // backgroundColor: 'brown',
-    flexBasis: '25%',
-  },
-}));
+import Navbar from '../NavBar/Navbar';
+import Post from '../Post';
+import useStyles from './HomeStyle';
 
 const Home = ({ clearToken }) => {
   const classes = useStyles();

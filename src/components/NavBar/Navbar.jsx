@@ -17,76 +17,11 @@ import EmailIcon from '@material-ui/icons/Email';
 import SearchIcon from '@material-ui/icons/Search';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MenuIcon from '@material-ui/icons/Menu';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyles from './NavBarStyle';
 
 const Navbar = ({ clearToken }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuBarAnchor, setMenuBarAnchor] = useState();
-
-  const open = Boolean(anchorEl);
-  const openMenu = Boolean(menuBarAnchor);
-
-  const handleAccount = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleAcctClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleSignOut = () => {
-    clearToken();
-  };
-
-  const handleMenuBar = (e) => {
-    setMenuBarAnchor(e.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setMenuBarAnchor(null);
-  };
-
-  const useStyles = makeStyles((theme) => ({
-    inputInput: {
-      padding: theme.spacing(0, 1, 0, 0),
-      width: '50%',
-      paddingLeft: '25px',
-      border: '1px solid lightgrey',
-      backgroundColor: 'lightgrey',
-      opacity: '50%',
-      borderRadius: '10px',
-    },
-    searchIcon: {
-      position: 'absolute',
-      padding: theme.spacing(0.5, 0.2, 3, 13),
-      zIndex: '1',
-    },
-    search: {
-      width: '30%',
-    },
-    appBar: {
-      backgroundColor: 'white',
-      position: 'fixed',
-    },
-    root: {
-      flexGrow: '4',
-      '&:hover': {
-        background: 'none',
-      },
-    },
-    typo: {
-      paddingTop: '3px',
-    },
-    iconContainer: {
-      display: 'flex',
-    },
-    icons: {
-      minWidth: '200px',
-      paddingTop: '7px',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-    },
-  }));
 
   const classes = useStyles();
 
@@ -135,12 +70,16 @@ const Navbar = ({ clearToken }) => {
                     <EmailIcon />
                   </Grid>
                   <Grid item xs={1}>
-                    <AccountCircleIcon onClick={handleAccount} />
+                    <AccountCircleIcon
+                      onClick={(e) => setAnchorEl(e.currentTarget)}
+                    />
                   </Grid>
                 </Hidden>
                 <Hidden mdUp>
                   <Grid item>
-                    <MenuIcon onClick={handleMenuBar} />
+                    <MenuIcon
+                      onClick={(e) => setMenuBarAnchor(e.currentTarget)}
+                    />
                   </Grid>
                 </Hidden>
               </Grid>
@@ -157,12 +96,12 @@ const Navbar = ({ clearToken }) => {
               vertical: 'bottom',
               horizontal: 'left',
             }}
-            open={open}
-            onClose={handleAcctClose}
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
           >
-            <MenuItem onClick={handleAcctClose}>Profile</MenuItem>
-            <MenuItem onClick={handleAcctClose}>My Account</MenuItem>
-            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+            <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
+            <MenuItem onClick={() => setAnchorEl(null)}>My Account</MenuItem>
+            <MenuItem onClick={() => clearToken()}>Sign Out</MenuItem>
           </Menu>
           <Menu
             anchorEl={menuBarAnchor}
@@ -175,8 +114,8 @@ const Navbar = ({ clearToken }) => {
               vertical: 'bottom',
               horizontal: 'left',
             }}
-            open={openMenu}
-            onClose={handleMenuClose}
+            open={Boolean(menuBarAnchor)}
+            onClose={() => setMenuBarAnchor(null)}
           >
             <MenuItem>
               <AddBoxIcon />

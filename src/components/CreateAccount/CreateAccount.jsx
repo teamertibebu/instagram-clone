@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
-const useStyles = makeStyles((styles) => ({
-  profileImage: {
-    width: '100%',
-    height: '100%',
-  },
-  imageContainer: {
-    width: '25%',
-    height: '25%',
-  },
-}));
+import useStyles from './CreateAccountStyle';
 
 async function createUserAccount(info) {
   return axios
@@ -31,7 +20,7 @@ async function loginUser(credentials, setToken) {
   setToken(token);
 }
 
-const Login = ({ setToken }) => {
+const CreateAccount = ({ setToken }) => {
   const [username, setUserName] = useState('@');
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -117,8 +106,8 @@ const Login = ({ setToken }) => {
   );
 };
 
-Login.propTypes = {
+CreateAccount.propTypes = {
   setToken: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default CreateAccount;
