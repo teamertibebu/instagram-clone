@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -14,20 +14,21 @@ const useStyles = makeStyles((styles) => ({
   },
 }));
 
-async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
+async function createUserAccount(info) {
+  return axios
+    .post('http://localhost:8080/createAccount', info)
+    .then(({ data }) => data);
+}
+
+async function loginUser(credentials, setToken) {
+  const token = await fetch('http://localhost:8080/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(credentials),
   }).then((data) => data.json());
-}
-
-async function createUserAccount(info) {
-  return axios
-    .post('http://localhost:8080/createAccount', info)
-    .then(({ data }) => data);
+  setToken(token);
 }
 
 const Login = ({ setToken }) => {
@@ -35,22 +36,33 @@ const Login = ({ setToken }) => {
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
   const [image, setImage] = useState();
-  const [userAvailable, setUserAvailable] = useState(true);
+  const [userAvailable, setUserAvailable] = useState();
 
   const classes = useStyles();
 
+  useEffect(() => {
+    if (userAvailable) {
+      loginUser(
+        {
+          username,
+          password,
+        },
+        setToken
+      );
+    } else {
+      console.log('user unavailable');
+    }
+  }, [userAvailable]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await loginUser({
+    const { available } = await createUserAccount({
       username,
       password,
+      email,
+      image,
     });
-    setToken(token);
-
-    const haha = await createUserAccount({ username, password, email, image });
-    setUserAvailable(haha.available);
-    setUserAvailable(true);
-    console.log(haha);
+    setUserAvailable(available);
   };
 
   const handleImageUpload = (e) => {
@@ -95,13 +107,7 @@ const Login = ({ setToken }) => {
           <input type="file" onChange={handleImageUpload} />
         </label>
         <div>
-          {userAvailable ? (
-            <button type="submit">Submit</button>
-          ) : (
-            <button type="submit" disabled>
-              Submit
-            </button>
-          )}
+          <button type="submit">Submit</button>
         </div>
       </form>
     </div>

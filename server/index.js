@@ -29,23 +29,24 @@ app.post('/createAccount', (req, res) => {
     password +
     "')";
 
-  db.query(
+  return db.query(
     "select * from `users` where `name`='" + username + "'",
     (err, results) => {
       if (err) throw err;
-      console.log('right here', results);
+      console.log('User Already Exists', results);
 
       if (!results[0]) {
-        db.query(query, (err, results, fields) => {
+        db.query(query, (err, results) => {
           if (err) {
             console.log(err);
           }
-
-          res.send({ available: true });
+          console.log('inside is hit', results);
+          return res.send({ available: true });
         });
+      } else {
+        console.log('outside is hit');
+        return res.send({ available: false });
       }
-
-      res.send({ available: false });
     }
   );
 });
