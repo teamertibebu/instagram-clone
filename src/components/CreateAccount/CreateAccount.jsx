@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import useStyles from './CreateAccountStyle';
-import SignIn from '../Login/SignIn.jsx';
+import SignIn from '../SignIn/SignIn.jsx';
 import loginUser from '../HelperFunctions/loginUser.js';
+import { Button } from '@material-ui/core';
 
 async function createUserAccount(info) {
   return axios
@@ -11,7 +12,7 @@ async function createUserAccount(info) {
     .then(({ data }) => data);
 }
 
-const CreateAccount = ({ setToken }) => {
+const CreateAccount = ({ setToken, setForm }) => {
   const [username, setUserName] = useState('@');
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -50,7 +51,6 @@ const CreateAccount = ({ setToken }) => {
 
   return (
     <div className="login-wrapper">
-      <SignIn setToken={setToken} />
       <h1>Create Account</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -94,6 +94,7 @@ const CreateAccount = ({ setToken }) => {
           </p>
         ) : null}
       </form>
+      <Button onClick={() => setForm('signIn')}>Sign In</Button>
     </div>
   );
 };
