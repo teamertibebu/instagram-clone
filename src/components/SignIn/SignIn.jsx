@@ -13,16 +13,19 @@ const useStyles = makeStyles((styles) => ({
 const SignIn = ({ setToken, setForm }) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  let [loginSuccess, setLoginSuccess] = useState();
 
   const handleLoginIn = (e) => {
     e.preventDefault();
 
     axios
       .post('http://localhost:8080/signIn', { username, password })
-      .then(({ data }) => data.passwordCorrect)
-      .then((data) => {
-        if (data === true) {
+      .then(({ data }) => data)
+      .then(({ passwordCorrect, usernameFound }) => {
+        if (usernameFound && passwordCorrect) {
           loginUser({}, setToken);
+        } else {
+          setLoginSuccess(false);
         }
       });
   };
@@ -58,6 +61,9 @@ const SignIn = ({ setToken, setForm }) => {
       <Button color="primary" onClick={() => setForm('createAccount')}>
         Create Account
       </Button>
+      {loginSuccess === false ? (
+        <p>Login Unsuccessful. Please try again.</p>
+      ) : null}
     </div>
   );
 };
