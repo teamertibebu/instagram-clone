@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const cors = require('cors');
 const db = require('./database/connection');
+const uploadFile = require('./s3Upload');
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
@@ -52,6 +53,10 @@ app.post('/signIn', (req, res) => {
 
 app.post('/createAccount', (req, res) => {
   const { username, password, email, image } = req.body;
+  const img = image.replace('blob:', '');
+
+  uploadFile(img);
+
   const query =
     "INSERT INTO `users` (`name`, `image`, `email`, `password`) values ('" +
     username +
