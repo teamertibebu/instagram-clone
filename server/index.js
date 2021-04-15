@@ -53,9 +53,12 @@ app.post('/signIn', (req, res) => {
 
 app.post('/createAccount', (req, res) => {
   const { username, password, email, image } = req.body;
-  const img = image.replace('blob:', '');
 
-  uploadFile(img);
+  if (image) {
+    const img = image.replace('blob:', '');
+
+    uploadFile(img);
+  }
 
   const query =
     "INSERT INTO `users` (`name`, `image`, `email`, `password`) values ('" +
