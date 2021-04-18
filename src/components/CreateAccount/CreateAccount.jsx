@@ -76,11 +76,13 @@ const CreateAccount = ({ setToken, setForm }) => {
           className={classes.loginContainer}
         >
           <div />
-          <div className={classes.formContainer}>
+
+          <form className={classes.formContainer} onSubmit={handleSubmit}>
             <Grid container justify="center">
               <img src={logo} alt="logo" className={classes.logo} />
             </Grid>
             <TextField
+              required
               label="Username"
               margin="normal"
               InputProps={{
@@ -93,6 +95,7 @@ const CreateAccount = ({ setToken, setForm }) => {
               onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
+              required
               label="Password"
               margin="normal"
               InputProps={{
@@ -105,6 +108,7 @@ const CreateAccount = ({ setToken, setForm }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <TextField
+              required
               label="E-mail"
               margin="normal"
               InputProps={{
@@ -118,12 +122,7 @@ const CreateAccount = ({ setToken, setForm }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <div style={{ height: '20px' }} />
-            <Button
-              type="submit"
-              color="primary"
-              variant="contained"
-              onClick={handleSubmit}
-            >
+            <Button type="submit" color="primary" variant="contained">
               Create Account
             </Button>
             <div style={{ height: '20px' }} />
@@ -136,7 +135,7 @@ const CreateAccount = ({ setToken, setForm }) => {
                 Username is not available. Please try another.
               </p>
             ) : null}
-          </div>
+          </form>
           <div />
           <Grid container justify="center" spacing={2}>
             <Grid item>
