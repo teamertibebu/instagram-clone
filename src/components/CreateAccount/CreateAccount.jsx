@@ -2,24 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import useStyles from './CreateAccountStyle';
-import SignIn from '../SignIn/SignIn.jsx';
 import loginUser from '../HelperFunctions/loginUser.js';
 import {
   Button,
   Grid,
-  Typography,
   Hidden,
   TextField,
   InputAdornment,
-  InputBase,
-  Avatar,
+  Typography,
 } from '@material-ui/core';
-import {
-  AccountCircle,
-  LockRounded,
-  AlternateEmail,
-  PhotoLibrary,
-} from '@material-ui/icons';
+import { AccountCircle, LockRounded, AlternateEmail } from '@material-ui/icons';
 import brandImg from '../../brand.png';
 import logo from '../../logo.png';
 
@@ -34,6 +26,9 @@ const CreateAccount = ({ setToken, setForm }) => {
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
   const [userAvailable, setUserAvailable] = useState();
+  const [emailError, setEmailError] = useState();
+  const [usernameError, setUsernameError] = useState();
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/gi;
 
   const classes = useStyles();
 
@@ -51,12 +46,27 @@ const CreateAccount = ({ setToken, setForm }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!email.match(emailRegex)) {
+      setEmailError('Email Not Valid. ex. johndoe@gmail.com');
+      return;
+    } else {
+      setEmailError(null);
+    }
+
     const { available } = await createUserAccount({
       username,
       password,
       email,
     });
+
     setUserAvailable(available);
+
+    if (!available) {
+      setUsernameError('Username is not available. Please try another.');
+    } else {
+      setUsernameError(null);
+    }
   };
 
   return (
@@ -96,6 +106,7 @@ const CreateAccount = ({ setToken, setForm }) => {
             />
             <TextField
               required
+              type="password"
               label="Password"
               margin="normal"
               InputProps={{
@@ -109,6 +120,7 @@ const CreateAccount = ({ setToken, setForm }) => {
             />
             <TextField
               required
+              type="email"
               label="E-mail"
               margin="normal"
               InputProps={{
@@ -131,9 +143,10 @@ const CreateAccount = ({ setToken, setForm }) => {
             </Button>
             <div style={{ height: '20px' }} />
             {userAvailable === false ? (
-              <p style={{ color: 'red' }}>
-                Username is not available. Please try another.
-              </p>
+              <Typography color="error">{usernameError}</Typography>
+            ) : null}
+            {emailError ? (
+              <Typography color="error">{emailError}</Typography>
             ) : null}
           </form>
           <div />
