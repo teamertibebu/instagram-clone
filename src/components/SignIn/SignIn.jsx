@@ -1,21 +1,27 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import {
+  Button,
+  Grid,
+  TextField,
+  InputAdornment,
+  Typography,
+  Hidden,
+} from '@material-ui/core';
 import { useState } from 'react';
 import axios from 'axios';
 import loginUser from '../HelperFunctions/loginUser.js';
-
-const useStyles = makeStyles((styles) => ({
-  input: {
-    display: 'block',
-  },
-}));
+import useStyles from './SignInStyle';
+import brandImg from '../../brand.png';
+import logo from '../../logo.png';
+import { AccountCircle, LockRounded } from '@material-ui/icons';
 
 const SignIn = ({ setToken, setForm }) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  let [loginSuccess, setLoginSuccess] = useState();
+  const [loginSuccess, setLoginSuccess] = useState();
+  const classes = useStyles();
 
-  const handleLoginIn = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     axios
@@ -30,40 +36,84 @@ const SignIn = ({ setToken, setForm }) => {
       });
   };
 
-  const classes = useStyles();
-
   return (
     <div>
-      <h1>Sign In</h1>
-      <form onSubmit={handleLoginIn}>
-        <div className={classes.input}>
-          <label htmlFor="username">
-            <p>Username</p>
-            <input
-              type="text"
-              name="username"
+      <Grid container spacing={1} className={classes.topContainer}>
+        <Hidden smDown>
+          <Grid item md={6} className={classes.brandImageCont}>
+            <img src={brandImg} className={classes.brandImage} alt="brand" />
+          </Grid>
+        </Hidden>
+        <Grid
+          container
+          direction="column"
+          item
+          sm={12}
+          md={6}
+          className={classes.loginContainer}
+        >
+          <div />
+          <div className={classes.formContainer}>
+            <Grid container justify="center">
+              <img src={logo} alt="logo" className={classes.logo} />
+            </Grid>
+            <TextField
+              label="Username"
+              margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment>
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
               onChange={(e) => setUsername(e.target.value)}
             />
-          </label>
-        </div>
-        <div className={classes.input}>
-          <label htmlFor="password">
-            <p>Password</p>
-            <input
-              type="password"
-              name="password"
+            <TextField
+              label="Password"
+              margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment>
+                    <LockRounded />
+                  </InputAdornment>
+                ),
+              }}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </label>
-        </div>
-        <button type="submit">Sign In</button>
-      </form>
-      <Button color="primary" onClick={() => setForm('createAccount')}>
-        Create Account
-      </Button>
-      {loginSuccess === false ? (
-        <p>Login Unsuccessful. Please try again.</p>
-      ) : null}
+            <div style={{ height: '20px' }} />
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              onClick={handleLogin}
+            >
+              Login
+            </Button>
+            <div style={{ height: '20px' }} />
+            <Button color="primary" onClick={() => setForm('createAccount')}>
+              Create Account
+            </Button>
+            <div style={{ height: '20px' }} />
+            {loginSuccess === false ? (
+              <div style={{ height: '20px', textAlign: 'center' }}>
+                <Typography color="error">
+                  Login Unsuccessful. Please try again.
+                </Typography>
+              </div>
+            ) : null}
+          </div>
+          <div />
+          <Grid container justify="center" spacing={2}>
+            <Grid item>
+              <Button color="primary">Go To Community Page</Button>
+            </Grid>
+            <Grid item>
+              <Button variant="outlined">Forgot Password?</Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 };
