@@ -4,7 +4,24 @@ import axios from 'axios';
 import useStyles from './CreateAccountStyle';
 import SignIn from '../SignIn/SignIn.jsx';
 import loginUser from '../HelperFunctions/loginUser.js';
-import { Button } from '@material-ui/core';
+import {
+  Button,
+  Grid,
+  Typography,
+  Hidden,
+  TextField,
+  InputAdornment,
+  InputBase,
+  Avatar,
+} from '@material-ui/core';
+import {
+  AccountCircle,
+  LockRounded,
+  AlternateEmail,
+  PhotoLibrary,
+} from '@material-ui/icons';
+import brandImg from '../../brand.png';
+import logo from '../../logo.png';
 
 async function createUserAccount(info) {
   return axios
@@ -13,10 +30,9 @@ async function createUserAccount(info) {
 }
 
 const CreateAccount = ({ setToken, setForm }) => {
-  const [username, setUserName] = useState('@');
+  const [username, setUsername] = useState('@');
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
-  const [image, setImage] = useState();
   const [userAvailable, setUserAvailable] = useState();
 
   const classes = useStyles();
@@ -39,62 +55,99 @@ const CreateAccount = ({ setToken, setForm }) => {
       username,
       password,
       email,
-      image,
     });
     setUserAvailable(available);
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setImage(URL.createObjectURL(file));
-  };
-
   return (
-    <div className="login-wrapper">
-      <h1>Create Account</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input
-            type="text"
-            required
-            onInvalid={() => "alert('You must fill out the form!')"}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </label>
-        <label>
-          <p>Password</p>
-          <input
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <label>
-          <p>E-Mail</p>
-          <input
-            required
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <div className={classes.imageContainer}>
-          <img src={image} alt="" className={classes.profileImage} />
-        </div>
-        <label>
-          <p>Profile Image</p>
-          <input type="file" onChange={handleImageUpload} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-        {userAvailable === false ? (
-          <p style={{ color: 'red' }}>
-            Username is not available. Please try another.
-          </p>
-        ) : null}
-      </form>
-      <Button onClick={() => setForm('signIn')}>Sign In</Button>
+    <div>
+      <Grid container spacing={1} className={classes.topContainer}>
+        <Hidden smDown>
+          <Grid item md={6} className={classes.brandImageCont}>
+            <img src={brandImg} className={classes.brandImage} alt="brand" />
+          </Grid>
+        </Hidden>
+        <Grid
+          container
+          direction="column"
+          item
+          sm={12}
+          md={6}
+          className={classes.loginContainer}
+        >
+          <div />
+          <div className={classes.formContainer}>
+            <Grid container justify="center">
+              <img src={logo} alt="logo" className={classes.logo} />
+            </Grid>
+            <TextField
+              label="Username"
+              margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment>
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              label="Password"
+              margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment>
+                    <LockRounded />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              label="E-mail"
+              margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment>
+                    <AlternateEmail />
+                  </InputAdornment>
+                ),
+              }}
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div style={{ height: '20px' }} />
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              onClick={handleSubmit}
+            >
+              Create Account
+            </Button>
+            <div style={{ height: '20px' }} />
+            <Button color="primary" onClick={() => setForm('signIn')}>
+              Login
+            </Button>
+            <div style={{ height: '20px' }} />
+            {userAvailable === false ? (
+              <p style={{ color: 'red' }}>
+                Username is not available. Please try another.
+              </p>
+            ) : null}
+          </div>
+          <div />
+          <Grid container justify="center" spacing={2}>
+            <Grid item>
+              <Button color="primary">Go To Community Page</Button>
+            </Grid>
+            <Grid item>
+              <Button variant="outlined">Forgot Password?</Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 };

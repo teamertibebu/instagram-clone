@@ -1,13 +1,30 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((styles) => ({
-  profileImage: {
-    width: '100%',
-    height: '100%',
+  topContainer: {
+    height: '100vh',
+    backgroundColor: '#fafafa',
   },
-  imageContainer: {
-    width: '25%',
-    height: '25%',
+  brandImageCont: {
+    height: '100vh',
+  },
+  brandImage: {
+    float: 'right',
+    height: '100vh',
+  },
+  loginContainer: {
+    paddingBottom: '10px',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  formContainer: {
+    display: 'flex',
+    maxWidth: '400px',
+    minWidth: '300px',
+    flexDirection: 'column',
+  },
+  logo: {
+    width: '200px',
   },
 }));
 
