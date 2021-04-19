@@ -43,36 +43,19 @@ app.post('/addPost', (req, res) => {
 
 app.post('/signIn', (req, res) => {
   const { username, password } = req.body;
-  let usernameFound;
-  let passwordCorrect;
-  const query =
-    "SELECT `password` FROM `users` WHERE `name`='" + username + "'";
 
-  // db.query(
-  //   "SELECT `name` from `users` WHERE `name`='" + username + "'",
-  //   (err, results) => {
-  //     if (err) throw err;
-
-  //     if (results[0]) {
-  //       db.query(query, (err, results) => {
-  //         if (err) throw err;
-
-  //         if (password === results[0].password) {
-  //           passwordCorrect = true;
-  //           usernameFound = true;
-  //           return res.send({ passwordCorrect, usernameFound });
-  //         } else {
-  //           passwordCorrect = false;
-  //           usernameFound = true;
-  //           return res.send({ passwordCorrect: false });
-  //         }
-  //       });
-  //     } else {
-  //       usernameFound = false;
-  //       return res.send({ usernameFound });
-  //     }
-  //   }
-  // );
+  User.findAll({
+    attributes: ['password'],
+    where: { username },
+  }).then((results) => {
+    if (results.length) {
+      return password === results[0].password
+        ? res.send({ passwordCorrect: true, usernameFound: true })
+        : res.send({ passwordCorrect: false, usernameFound: true });
+    } else {
+      return res.send({ usernameFound: false });
+    }
+  });
 });
 
 app.post('/createAccount', (req, res) => {
