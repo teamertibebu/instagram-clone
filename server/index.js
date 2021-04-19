@@ -17,6 +17,26 @@ app.use('/login', (req, res) => {
   });
 });
 
+app.post('/addPost', (req, res) => {
+  const { image, caption } = req.body;
+  const name = 'root';
+  // console.log('USERNAME', username);
+  db.query(
+    "INSERT INTO `posts` (`image`, `caption`, `user`) VALUES ('" +
+      image +
+      "', '" +
+      caption +
+      "', (SELECT `id` FROM `users` WHERE `name`='" +
+      name +
+      "'))",
+    (err, results) => {
+      if (err) throw err;
+      console.log('RESULTS', results);
+    }
+  );
+  res.send('successful');
+});
+
 app.post('/signIn', (req, res) => {
   const { username, password } = req.body;
   let usernameFound;

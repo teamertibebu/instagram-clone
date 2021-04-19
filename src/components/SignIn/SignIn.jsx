@@ -20,6 +20,7 @@ const SignIn = ({ setToken, setForm }) => {
   const [password, setPassword] = useState();
   const [loginSuccess, setLoginSuccess] = useState();
   const classes = useStyles();
+  localStorage.setItem('username', username);
 
   const handleLogin = (e) => {
     e.preventDefault();

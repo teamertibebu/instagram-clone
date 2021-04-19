@@ -2,10 +2,13 @@ import { TextField, Grid, Button } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
 import { useState, useRef } from 'react';
 import useStyles from './ModalStyle';
+import axios from 'axios';
 
 const ModalBody = () => {
   const [image, setImage] = useState();
+  const [caption, setCaption] = useState();
   const inputFile = useRef(null);
+  const username = localStorage.getItem('username');
 
   const classes = useStyles();
 
@@ -20,7 +23,11 @@ const ModalBody = () => {
     inputFile.current.click();
   };
 
-  const handlePost = () => {};
+  const handlePost = (info) => {
+    axios.post('http://localhost:8080/addPost', info).then(({ data }) => {
+      console.log(data);
+    });
+  };
 
   return (
     <Grid
@@ -71,6 +78,7 @@ const ModalBody = () => {
           placeholder="Insert Caption Here."
           rows={2}
           style={{ width: '100%' }}
+          onChange={(e) => setCaption(e.target.value)}
         />
       </Grid>
       <Grid item xs={12}>
@@ -78,7 +86,7 @@ const ModalBody = () => {
           style={{ width: '100%' }}
           color="primary"
           variant="contained"
-          onClick={handlePost}
+          onClick={() => handlePost({ image, caption, username })}
         >
           Post It!
         </Button>
