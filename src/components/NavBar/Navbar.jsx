@@ -81,7 +81,7 @@ const Navbar = ({ clearToken }) => {
                         closeAfterTransition
                       >
                         <Fade in={open} timeout={500}>
-                          <ModalBody />
+                          <ModalBody setOpen={setOpen} />
                         </Fade>
                       </Modal>
                     </Grid>

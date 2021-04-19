@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import useStyles from './ModalStyle';
 import axios from 'axios';
 
-const ModalBody = () => {
+const ModalBody = ({ setOpen }) => {
   const [image, setImage] = useState();
   const [caption, setCaption] = useState();
   const inputFile = useRef(null);
@@ -24,8 +24,8 @@ const ModalBody = () => {
   };
 
   const handlePost = (info) => {
-    axios.post('http://localhost:8080/addPost', info).then(({ data }) => {
-      console.log(data);
+    axios.post('http://localhost:8080/addPost', info).then(() => {
+      setOpen(false);
     });
   };
 

@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const User = require('./database/Models/User');
 const Post = require('./database/Models/Post');
+const sequelize = require('./database/connection');
 const { Op } = require('sequelize');
 
 const uploadFile = require('./s3Upload');
@@ -21,24 +22,17 @@ app.use('/login', (req, res) => {
 });
 
 app.post('/addPost', (req, res) => {
-  const { image, caption } = req.body;
-  const name = 'root';
-  // console.log('USERNAME', username);
+  const { image, caption, username } = req.body;
 
-  // db.query(
-  //   "INSERT INTO `posts` (`image`, `caption`, `user`) VALUES ('" +
-  //     image +
-  //     "', '" +
-  //     caption +
-  //     "', (SELECT `id` FROM `users` WHERE `name`='" +
-  //     name +
-  //     "'))",
-  //   (err, results) => {
-  //     if (err) throw err;
-  //     console.log('RESULTS', results);
-  //   }
-  // );
-  res.send('successful');
+  Post.create({
+    image,
+    user_id: sequelize.literal(
+      `(SELECT id FROM users WHERE username="${username}")`
+    ),
+    caption,
+  })
+    .then(() => res.end())
+    .catch((err) => console.log(err));
 });
 
 app.post('/signIn', (req, res) => {
