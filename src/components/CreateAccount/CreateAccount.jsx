@@ -28,6 +28,8 @@ const CreateAccount = ({ setToken, setForm }) => {
   const [userAvailable, setUserAvailable] = useState();
   const [emailError, setEmailError] = useState();
   const [usernameError, setUsernameError] = useState();
+  localStorage.setItem('username', username);
+
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/gi;
 
   const classes = useStyles();
