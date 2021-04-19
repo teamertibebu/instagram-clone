@@ -3,7 +3,10 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-const sequelize = require('./database/connection');
+const User = require('./database/Models/User');
+const Post = require('./database/Models/Post');
+const { Op } = require('sequelize');
+
 const uploadFile = require('./s3Upload');
 
 app.use(cors());
@@ -21,6 +24,7 @@ app.post('/addPost', (req, res) => {
   const { image, caption } = req.body;
   const name = 'root';
   // console.log('USERNAME', username);
+
   // db.query(
   //   "INSERT INTO `posts` (`image`, `caption`, `user`) VALUES ('" +
   //     image +
@@ -80,34 +84,23 @@ app.post('/createAccount', (req, res) => {
     uploadFile(img);
   }
 
-  const query =
-    "INSERT INTO `users` (`name`, `image`, `email`, `password`) values ('" +
-    username +
-    "', '" +
-    image +
-    "', '" +
-    email +
-    "', '" +
-    password +
-    "')";
+  User.findAll({
+    where: {
+      username,
+    },
+  })
+    .then((results) => {
+      const available = results.length === 0 ? true : false;
 
-  // return db.query(
-  //   "select * from `users` where `name`='" + username + "'",
-  //   (err, results) => {
-  //     if (err) throw err;
-
-  //     if (!results[0]) {
-  //       db.query(query, (err, results) => {
-  //         if (err) {
-  //           console.log(err);
-  //         }
-  //         return res.send({ available: true });
-  //       });
-  //     } else {
-  //       return res.send({ available: false });
-  //     }
-  //   }
-  // );
+      if (available) {
+        User.create({ username, image, email, password })
+          .then((results) => res.send({ available }))
+          .catch((err) => console.log(err));
+      } else {
+        res.send({ available });
+      }
+    })
+    .catch((err) => console.log(err));
 });
 
 app.get('/', (req, res) => {
