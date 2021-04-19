@@ -59,29 +59,20 @@ app.post('/signIn', (req, res) => {
 });
 
 app.post('/createAccount', (req, res) => {
-  const { username, password, email, image } = req.body;
+  const { username, password, email } = req.body;
 
-  if (image) {
-    const img = image.replace('blob:', '');
-
-    uploadFile(img);
-  }
-
-  User.findAll({
-    where: {
+  User.findOrCreate({
+    where: { username },
+    defaults: {
       username,
+      password,
+      email,
     },
   })
-    .then((results) => {
-      const available = results.length === 0 ? true : false;
-
-      if (available) {
-        User.create({ username, image, email, password })
-          .then((results) => res.send({ available }))
-          .catch((err) => console.log(err));
-      } else {
-        res.send({ available });
-      }
+    .then(([user, created]) => {
+      return created
+        ? res.send({ available: true })
+        : res.send({ available: false });
     })
     .catch((err) => console.log(err));
 });
