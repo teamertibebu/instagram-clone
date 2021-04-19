@@ -1,16 +1,25 @@
-var mysql = require('mysql2');
+const { Sequelize } = require('sequelize');
 
-var db = mysql.createConnection({
+var sequelize = new Sequelize('instaclone', 'root', null, {
   host: 'localhost',
-  user: 'root',
-  database: 'instaclone',
+  port: 3306,
+  dialect: 'mysql',
 });
 
-db.connect((err) => {
+sequelize.authenticate((err) => {
   if (err) {
-    throw err;
+    console.log('There is a connection in ERROR.');
+  } else {
+    console.log('Connection has been established successfully.');
   }
-  console.log('Database Connected!');
 });
 
-module.exports = db;
+sequelize.sync({ alter: true }, (err) => {
+  if (err) {
+    console.log('An error occured while creating table.');
+  } else {
+    console.log('Item table created successfully.');
+  }
+});
+
+module.exports = sequelize;

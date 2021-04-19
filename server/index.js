@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-const db = require('./database/connection');
+const sequelize = require('./database/connection');
 const uploadFile = require('./s3Upload');
 
 app.use(cors());
@@ -21,19 +21,19 @@ app.post('/addPost', (req, res) => {
   const { image, caption } = req.body;
   const name = 'root';
   // console.log('USERNAME', username);
-  db.query(
-    "INSERT INTO `posts` (`image`, `caption`, `user`) VALUES ('" +
-      image +
-      "', '" +
-      caption +
-      "', (SELECT `id` FROM `users` WHERE `name`='" +
-      name +
-      "'))",
-    (err, results) => {
-      if (err) throw err;
-      console.log('RESULTS', results);
-    }
-  );
+  // db.query(
+  //   "INSERT INTO `posts` (`image`, `caption`, `user`) VALUES ('" +
+  //     image +
+  //     "', '" +
+  //     caption +
+  //     "', (SELECT `id` FROM `users` WHERE `name`='" +
+  //     name +
+  //     "'))",
+  //   (err, results) => {
+  //     if (err) throw err;
+  //     console.log('RESULTS', results);
+  //   }
+  // );
   res.send('successful');
 });
 
@@ -44,31 +44,31 @@ app.post('/signIn', (req, res) => {
   const query =
     "SELECT `password` FROM `users` WHERE `name`='" + username + "'";
 
-  db.query(
-    "SELECT `name` from `users` WHERE `name`='" + username + "'",
-    (err, results) => {
-      if (err) throw err;
+  // db.query(
+  //   "SELECT `name` from `users` WHERE `name`='" + username + "'",
+  //   (err, results) => {
+  //     if (err) throw err;
 
-      if (results[0]) {
-        db.query(query, (err, results) => {
-          if (err) throw err;
+  //     if (results[0]) {
+  //       db.query(query, (err, results) => {
+  //         if (err) throw err;
 
-          if (password === results[0].password) {
-            passwordCorrect = true;
-            usernameFound = true;
-            return res.send({ passwordCorrect, usernameFound });
-          } else {
-            passwordCorrect = false;
-            usernameFound = true;
-            return res.send({ passwordCorrect: false });
-          }
-        });
-      } else {
-        usernameFound = false;
-        return res.send({ usernameFound });
-      }
-    }
-  );
+  //         if (password === results[0].password) {
+  //           passwordCorrect = true;
+  //           usernameFound = true;
+  //           return res.send({ passwordCorrect, usernameFound });
+  //         } else {
+  //           passwordCorrect = false;
+  //           usernameFound = true;
+  //           return res.send({ passwordCorrect: false });
+  //         }
+  //       });
+  //     } else {
+  //       usernameFound = false;
+  //       return res.send({ usernameFound });
+  //     }
+  //   }
+  // );
 });
 
 app.post('/createAccount', (req, res) => {
@@ -91,23 +91,23 @@ app.post('/createAccount', (req, res) => {
     password +
     "')";
 
-  return db.query(
-    "select * from `users` where `name`='" + username + "'",
-    (err, results) => {
-      if (err) throw err;
+  // return db.query(
+  //   "select * from `users` where `name`='" + username + "'",
+  //   (err, results) => {
+  //     if (err) throw err;
 
-      if (!results[0]) {
-        db.query(query, (err, results) => {
-          if (err) {
-            console.log(err);
-          }
-          return res.send({ available: true });
-        });
-      } else {
-        return res.send({ available: false });
-      }
-    }
-  );
+  //     if (!results[0]) {
+  //       db.query(query, (err, results) => {
+  //         if (err) {
+  //           console.log(err);
+  //         }
+  //         return res.send({ available: true });
+  //       });
+  //     } else {
+  //       return res.send({ available: false });
+  //     }
+  //   }
+  // );
 });
 
 app.get('/', (req, res) => {
