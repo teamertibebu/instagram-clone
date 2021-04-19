@@ -7,7 +7,7 @@ const useStyles = makeStyles((styles) => ({
   },
 }));
 
-const Post = () => {
+const Post = ({ image, caption }) => {
   const classes = useStyles();
 
   return (
