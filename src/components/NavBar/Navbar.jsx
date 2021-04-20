@@ -22,6 +22,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './NavBarStyle';
 import ModalBody from './Modal/Modal';
+import Logo from './../../logo.png';
 
 const Navbar = ({ clearToken, setPosts }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,10 +45,16 @@ const Navbar = ({ clearToken, setPosts }) => {
         <IconButton className={classes.root} disableRipple>
           <Grid container spacing={10} className={classes.container}>
             <Hidden smDown>
-              <Grid item lg={2} md={2} sm={3} xs={3}>
-                <Typography variant="h6" noWrap className={classes.typo}>
-                  Instaclone
-                </Typography>
+              <Grid
+                item
+                align="left"
+                lg={2}
+                md={2}
+                sm={3}
+                xs={3}
+                className={classes.imageGrid}
+              >
+                <img src={Logo} alt="logo" className={classes.logo} />
               </Grid>
             </Hidden>
             <Grid item lg={5} md={5} sm={6} xs={6} className={classes.search}>

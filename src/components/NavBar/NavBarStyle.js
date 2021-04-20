@@ -15,11 +15,24 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0.5, 0.2, 3, 13),
     zIndex: '1',
   },
+  logo: {
+    position: 'absolute',
+    width: '100px',
+    top: '40%',
+    margin: '0',
+    padding: '0',
+  },
+  imageGrid: {
+    position: 'relative',
+    height: '100%',
+  },
   search: {
     width: '30%',
   },
   appBar: {
     backgroundColor: 'white',
+    boxShadow: 'none',
+    borderBottom: '1px solid lightgrey',
     position: 'fixed',
   },
   root: {

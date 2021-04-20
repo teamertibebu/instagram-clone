@@ -32,7 +32,7 @@ const Post = ({ post }) => {
     <Grid container spacing={2} direction="column" className={classes.post}>
       <Grid container item xs={12}>
         <Grid container item xs={5} className={classes.postHeader}>
-          <Grid className={classes.avatar}>
+          <Grid item className={classes.avatar}>
             <Avatar src={image} alt="" />
           </Grid>
           <Grid item className={classes.username}>
