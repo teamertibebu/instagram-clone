@@ -14,8 +14,7 @@ const Post = ({ post }) => {
     image,
     User: { username },
   } = post;
-  const img = URL.revokeObjectURL(image);
-  console.log(img);
+
   return (
     <div>
       <div className="Post-user">
@@ -28,11 +27,11 @@ const Post = ({ post }) => {
       </div>
       <div className="Post-image">
         <div>
-          <img className={classes.img} alt="post" src={img} />
+          <img className={classes.img} alt="post" src={image} />
         </div>
       </div>
       <div className="Post-caption">
-        <strong>{caption}</strong> Moving the community!
+        <strong>{caption}</strong>
       </div>
     </div>
   );

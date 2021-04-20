@@ -27,7 +27,7 @@ const Navbar = ({ clearToken }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuBarAnchor, setMenuBarAnchor] = useState();
   const [open, setOpen] = useState(false);
-
+  console.log(open);
   const classes = useStyles();
 
   const handleOpen = () => {

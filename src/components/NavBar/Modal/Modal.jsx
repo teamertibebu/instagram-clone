@@ -3,19 +3,30 @@ import ImageIcon from '@material-ui/icons/Image';
 import { useState, useRef } from 'react';
 import useStyles from './ModalStyle';
 import axios from 'axios';
+import useStorage from '../../HelperFunctions/useStorage';
+import ProgressBar from '../../ProgressBar/ProgressBar';
 
 const ModalBody = ({ setOpen }) => {
-  const [image, setImage] = useState();
+  const [imageURL, setImageURL] = useState();
   const [caption, setCaption] = useState();
+  const [file, setFile] = useState();
+  const [error, setError] = useState();
   const inputFile = useRef(null);
   const username = localStorage.getItem('username');
+
+  const types = ['image/png', 'image/jpeg'];
 
   const classes = useStyles();
 
   const handleFileUpload = (e) => {
-    const { files } = e.target;
-    if (files && files.length) {
-      setImage(URL.createObjectURL(files[0]));
+    const selectedImage = e.target.files[0];
+
+    if (selectedImage && types.includes(selectedImage.type)) {
+      setFile(selectedImage);
+      setError('');
+    } else {
+      setFile(null);
+      setError('Please select an image file (png or jpeg)');
     }
   };
 
@@ -62,9 +73,9 @@ const ModalBody = ({ setOpen }) => {
           }}
           onClick={onButtonClick}
         />
-        {image ? (
+        {imageURL ? (
           <img
-            src={image}
+            src={imageURL}
             alt="post"
             style={{ width: '100%', height: '100%' }}
           />
@@ -81,12 +92,22 @@ const ModalBody = ({ setOpen }) => {
           onChange={(e) => setCaption(e.target.value)}
         />
       </Grid>
+      <div className="output">
+        {error && <div className="error">{error}</div>}
+        {file && (
+          <ProgressBar
+            setImageURL={setImageURL}
+            file={file}
+            setFile={setFile}
+          />
+        )}
+      </div>
       <Grid item xs={12}>
         <Button
           style={{ width: '100%' }}
           color="primary"
           variant="contained"
-          onClick={() => handlePost({ image, caption, username })}
+          onClick={() => handlePost({ imageURL, caption, username })}
         >
           Post It!
         </Button>

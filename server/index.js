@@ -33,21 +33,17 @@ app.get('/getAllPosts', (req, res) => {
 });
 
 app.post('/addPost', (req, res) => {
-  const { image, caption, username } = req.body;
+  const { imageURL, caption, username } = req.body;
 
-  const img = image.replace('blob:', '');
-  uploadFile(img);
-  console.log('----------', imageLocation);
-
-  // Post.create({
-  //   image: imageLocation,
-  //   user_id: sequelize.literal(
-  //     `(SELECT id FROM users WHERE username="${username}")`
-  //   ),
-  //   caption,
-  // })
-  //   .then(() => res.end())
-  //   .catch((err) => console.log(err));
+  Post.create({
+    image: imageURL,
+    user_id: sequelize.literal(
+      `(SELECT id FROM users WHERE username="${username}")`
+    ),
+    caption,
+  })
+    .then(() => res.end())
+    .catch((err) => console.log(err));
 });
 
 app.post('/signIn', (req, res) => {
