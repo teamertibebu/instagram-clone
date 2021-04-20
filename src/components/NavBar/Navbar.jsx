@@ -23,11 +23,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './NavBarStyle';
 import ModalBody from './Modal/Modal';
 
-const Navbar = ({ clearToken }) => {
+const Navbar = ({ clearToken, setPosts }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuBarAnchor, setMenuBarAnchor] = useState();
   const [open, setOpen] = useState(false);
-  console.log(open);
+
   const classes = useStyles();
 
   const handleOpen = () => {
@@ -81,7 +81,7 @@ const Navbar = ({ clearToken }) => {
                         closeAfterTransition
                       >
                         <Fade in={open} timeout={500}>
-                          <ModalBody setOpen={setOpen} />
+                          <ModalBody setOpen={setOpen} setPosts={setPosts} />
                         </Fade>
                       </Modal>
                     </Grid>

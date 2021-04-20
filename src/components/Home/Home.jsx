@@ -15,7 +15,7 @@ const Home = ({ clearToken }) => {
 
   return (
     <div>
-      <Navbar clearToken={clearToken} />
+      <Navbar clearToken={clearToken} setPosts={setPosts} />
       <Grid container className={classes.postContainer} spacing={2}>
         <Grid container direction="column" item lg={8} md={8} sm={10} xs={10}>
           {posts.map((post, i) => {

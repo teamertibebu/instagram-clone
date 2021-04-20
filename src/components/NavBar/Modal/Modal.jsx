@@ -6,7 +6,7 @@ import axios from 'axios';
 import useStorage from '../../HelperFunctions/useStorage';
 import ProgressBar from '../../ProgressBar/ProgressBar';
 
-const ModalBody = ({ setOpen }) => {
+const ModalBody = ({ setOpen, setPosts }) => {
   const [imageURL, setImageURL] = useState();
   const [caption, setCaption] = useState();
   const [file, setFile] = useState();
@@ -35,9 +35,16 @@ const ModalBody = ({ setOpen }) => {
   };
 
   const handlePost = (info) => {
-    axios.post('http://localhost:8080/addPost', info).then(() => {
-      setOpen(false);
-    });
+    axios
+      .post('http://localhost:8080/addPost', info)
+      .then(() => {
+        setOpen(false);
+      })
+      .then(() => {
+        axios
+          .get('http://localhost:8080/getAllPosts')
+          .then(({ data }) => setPosts(data));
+      });
   };
 
   return (
