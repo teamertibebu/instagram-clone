@@ -3,7 +3,6 @@ import ImageIcon from '@material-ui/icons/Image';
 import { useState, useRef } from 'react';
 import useStyles from './ModalStyle';
 import axios from 'axios';
-import useStorage from '../../HelperFunctions/useStorage';
 import ProgressBar from '../../ProgressBar/ProgressBar';
 
 const ModalBody = ({ setOpen, setPosts }) => {
@@ -36,14 +35,24 @@ const ModalBody = ({ setOpen, setPosts }) => {
 
   const handlePost = (info) => {
     axios
-      .post('http://localhost:8080/addPost', info)
+      .post('/addPost', info)
       .then(() => {
         setOpen(false);
       })
       .then(() => {
-        axios
-          .get('http://localhost:8080/getAllPosts')
-          .then(({ data }) => setPosts(data));
+        axios.get('/getAllPosts').then(({ data }) => {
+          data.forEach((post) => {
+            post.createdAt = new Date(post.createdAt);
+          });
+
+          data = data.sort((a, b) => {
+            const timeb = b.createdAt.getTime();
+            const timea = a.createdAt.getTime();
+
+            return timeb - timea;
+          });
+          setPosts(data);
+        });
       });
   };
 

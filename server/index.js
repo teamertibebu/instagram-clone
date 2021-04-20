@@ -27,6 +27,9 @@ app.get('/getAllPosts', (req, res) => {
     include: [{ model: User }],
   })
     .then((posts) => {
+      posts.forEach((post) => {
+        post.createdAt = new Date(post.CreatedAt);
+      });
       res.send(posts);
     })
     .catch((err) => console.log(err));

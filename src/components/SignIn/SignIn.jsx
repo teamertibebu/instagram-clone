@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Grid,
@@ -26,7 +25,7 @@ const SignIn = ({ setToken, setForm }) => {
     e.preventDefault();
 
     axios
-      .post('http://localhost:8080/signIn', { username, password })
+      .post('/signIn', { username, password })
       .then(({ data }) => data)
       .then(({ passwordCorrect, usernameFound }) => {
         if (usernameFound && passwordCorrect) {

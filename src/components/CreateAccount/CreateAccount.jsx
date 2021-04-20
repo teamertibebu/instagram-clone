@@ -16,9 +16,7 @@ import brandImg from '../../brand.png';
 import logo from '../../logo.png';
 
 async function createUserAccount(info) {
-  return axios
-    .post('http://localhost:8080/createAccount', info)
-    .then(({ data }) => data);
+  return axios.post('/createAccount', info).then(({ data }) => data);
 }
 
 const CreateAccount = ({ setToken, setForm }) => {

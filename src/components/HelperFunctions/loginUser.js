@@ -1,5 +1,5 @@
 export default async function loginUser(credentials, setToken) {
-  const token = await fetch('http://localhost:8080/login', {
+  const token = await fetch('/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

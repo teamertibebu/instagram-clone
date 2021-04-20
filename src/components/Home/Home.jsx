@@ -10,7 +10,20 @@ const Home = ({ clearToken }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get('/getAllPosts').then(({ data }) => setPosts(data));
+    axios.get('/getAllPosts').then(({ data }) => {
+      data.forEach((post) => {
+        post.createdAt = new Date(post.createdAt);
+      });
+
+      data = data.sort((a, b) => {
+        const timeb = b.createdAt.getTime();
+        const timea = a.createdAt.getTime();
+
+        return timeb - timea;
+      });
+
+      setPosts(data);
+    });
   }, []);
 
   return (
@@ -20,7 +33,7 @@ const Home = ({ clearToken }) => {
         <Grid container direction="column" item lg={8} md={8} sm={10} xs={10}>
           {posts.map((post, i) => {
             return (
-              <Grid item className={classes.post}>
+              <Grid item className={classes.post} key={post + i}>
                 <Post post={post} />
               </Grid>
             );
