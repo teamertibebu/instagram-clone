@@ -47,9 +47,10 @@ const Post = ({ post }) => {
         <img className={classes.img} alt="post" src={image} />
       </div>
       <Grid item xs={12}>
-        <div className="Post-caption">
-          <strong>{caption}</strong>
-        </div>
+        <Typography>
+          <strong className={classes.usernameInCaption}>{username}</strong>
+          {caption}
+        </Typography>
       </Grid>
     </Grid>
   );

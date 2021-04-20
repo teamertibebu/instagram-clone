@@ -1,4 +1,4 @@
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core/';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: '100%',
   },
+
   avatar: {
     position: 'relative',
     padding: '0 3% 0 5%',
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   username: {
     position: 'relative',
     top: '20%',
+  },
+  usernameInCaption: {
+    marginRight: '5px',
   },
 }));
 

@@ -30,15 +30,19 @@ const Home = ({ clearToken }) => {
     <div>
       <Navbar clearToken={clearToken} setPosts={setPosts} />
       <Grid container className={classes.postContainer} spacing={2}>
+        <Hidden mdDown>
+          <Grid item lg={2}></Grid>
+        </Hidden>
         <Grid
           container
           spacing={0}
           direction="column"
           item
-          lg={8}
-          md={8}
+          lg={5}
+          md={6}
           sm={10}
-          xs={10}
+          xs={12}
+          className={classes.feed}
         >
           {posts.map((post, i) => {
             return (
@@ -52,9 +56,8 @@ const Home = ({ clearToken }) => {
           container
           direction="column"
           item
-          xl={3}
           lg={3}
-          md={3}
+          md={4}
           classes={{
             root: classes.root,
           }}
@@ -72,6 +75,9 @@ const Home = ({ clearToken }) => {
             </Grid>
           </Hidden>
         </Grid>
+        <Hidden mdDown>
+          <Grid item lg={2}></Grid>
+        </Hidden>
       </Grid>
     </div>
   );
