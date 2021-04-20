@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Hidden } from '@material-ui/core';
 import Navbar from '../NavBar/Navbar';
-import Post from '../Post';
+import Post from '../Post/Post';
 import useStyles from './HomeStyle';
 import axios from 'axios';
 
@@ -30,10 +30,19 @@ const Home = ({ clearToken }) => {
     <div>
       <Navbar clearToken={clearToken} setPosts={setPosts} />
       <Grid container className={classes.postContainer} spacing={2}>
-        <Grid container direction="column" item lg={8} md={8} sm={10} xs={10}>
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          item
+          lg={8}
+          md={8}
+          sm={10}
+          xs={10}
+        >
           {posts.map((post, i) => {
             return (
-              <Grid item className={classes.post} key={post + i}>
+              <Grid item key={post + i}>
                 <Post post={post} />
               </Grid>
             );
