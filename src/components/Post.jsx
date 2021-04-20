@@ -7,9 +7,15 @@ const useStyles = makeStyles((styles) => ({
   },
 }));
 
-const Post = ({ image, caption }) => {
+const Post = ({ post }) => {
   const classes = useStyles();
-
+  const {
+    caption,
+    image,
+    User: { username },
+  } = post;
+  const img = URL.revokeObjectURL(image);
+  console.log(img);
   return (
     <div>
       <div className="Post-user">
@@ -17,20 +23,16 @@ const Post = ({ image, caption }) => {
           <img src="https://www.laravelnigeria.com/img/chris.jpg" alt="Chris" />
         </div>
         <div className="Post-user-nickname">
-          <span>Chris</span>
+          <span>{username}</span>
         </div>
       </div>
       <div className="Post-image">
         <div>
-          <img
-            className={classes.img}
-            alt="Icon Living"
-            src="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg"
-          />
+          <img className={classes.img} alt="post" src={img} />
         </div>
       </div>
       <div className="Post-caption">
-        <strong>Chris</strong> Moving the community!
+        <strong>{caption}</strong> Moving the community!
       </div>
     </div>
   );

@@ -1,23 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Hidden } from '@material-ui/core';
 import Navbar from '../NavBar/Navbar';
 import Post from '../Post';
 import useStyles from './HomeStyle';
+import axios from 'axios';
 
 const Home = ({ clearToken }) => {
   const classes = useStyles();
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios.get('/getAllPosts').then(({ data }) => setPosts(data));
+  }, []);
 
   return (
     <div>
       <Navbar clearToken={clearToken} />
       <Grid container className={classes.postContainer} spacing={2}>
         <Grid container direction="column" item lg={8} md={8} sm={10} xs={10}>
-          <Grid item className={classes.post}>
-            <Post />
-          </Grid>
-          <Grid item className={classes.post}>
-            <Post />
-          </Grid>
+          {posts.map((post, i) => {
+            return (
+              <Grid item className={classes.post}>
+                <Post post={post} />
+              </Grid>
+            );
+          })}
         </Grid>
         <Grid
           container

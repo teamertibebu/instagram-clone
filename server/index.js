@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-const User = require('./database/Models/User');
-const Post = require('./database/Models/Post');
+// const User = require('./database/Models/User');
+// const Post = require('./database/Models/Post');
+const { User, Post } = require('./database/db');
 const sequelize = require('./database/connection');
 const { Op } = require('sequelize');
 
@@ -21,18 +22,32 @@ app.use('/login', (req, res) => {
   });
 });
 
+app.get('/getAllPosts', (req, res) => {
+  Post.findAll({
+    include: [{ model: User }],
+  })
+    .then((posts) => {
+      res.send(posts);
+    })
+    .catch((err) => console.log(err));
+});
+
 app.post('/addPost', (req, res) => {
   const { image, caption, username } = req.body;
 
-  Post.create({
-    image,
-    user_id: sequelize.literal(
-      `(SELECT id FROM users WHERE username="${username}")`
-    ),
-    caption,
-  })
-    .then(() => res.end())
-    .catch((err) => console.log(err));
+  const img = image.replace('blob:', '');
+  uploadFile(img);
+  console.log('----------', imageLocation);
+
+  // Post.create({
+  //   image: imageLocation,
+  //   user_id: sequelize.literal(
+  //     `(SELECT id FROM users WHERE username="${username}")`
+  //   ),
+  //   caption,
+  // })
+  //   .then(() => res.end())
+  //   .catch((err) => console.log(err));
 });
 
 app.post('/signIn', (req, res) => {

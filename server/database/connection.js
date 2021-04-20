@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-var sequelize = new Sequelize('instaclone', 'root', null, {
+const sequelize = new Sequelize('instaclone', 'root', null, {
   host: 'localhost',
   port: 3306,
   dialect: 'mysql',
