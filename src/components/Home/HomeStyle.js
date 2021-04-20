@@ -4,7 +4,8 @@ const useStyles = makeStyles((styles) => ({
   postContainer: {
     display: 'flex',
     border: '2px solid lightgrey',
-    padding: '8%',
+    borderTop: 'none',
+    marginTop: 'clamp(70px, 90px, 100px)',
     justifyContent: 'center',
   },
   post: {
