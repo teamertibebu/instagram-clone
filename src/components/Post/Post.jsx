@@ -1,32 +1,14 @@
-import './Post.css';
 import useStyles from './PostStyle';
-import {
-  Grid,
-  Avatar,
-  Typography,
-  createMuiTheme,
-  ThemeProvider,
-} from '@material-ui/core';
-
-const theme = createMuiTheme({
-  overrides: {
-    // MuiGrid: {
-    //   'spacing-xs-1': {
-    //     margin: 0,
-    //     color: 'red',
-    //     backgroundColor: 'purple',
-    //   },
-    // },
-  },
-});
+import { Grid, Avatar, Typography } from '@material-ui/core';
 
 const Post = ({ post }) => {
-  const classes = useStyles();
   const {
     caption,
     image,
     User: { username },
   } = post;
+
+  const classes = useStyles();
 
   return (
     <Grid container spacing={2} direction="column" className={classes.post}>
