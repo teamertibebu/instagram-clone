@@ -2,7 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import Home from './components/Home/Home.jsx';
 import CreateAccount from './components/CreateAccount/CreateAccount';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import useToken from './components/useToken.js';
 import SignIn from './components/SignIn/SignIn';
 
@@ -20,10 +20,11 @@ const App = () => {
 
   return (
     <div className="wrapper">
-      <Home clearToken={clearToken} />
       <BrowserRouter>
         <Switch>
-          <Route path="/home"></Route>
+          <Route exact path="/">
+            <Home clearToken={clearToken} />
+          </Route>
         </Switch>
       </BrowserRouter>
     </div>
