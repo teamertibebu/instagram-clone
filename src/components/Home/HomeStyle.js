@@ -12,11 +12,6 @@ const useStyles = makeStyles((styles) => ({
     border: '1px solid lightgrey',
     boxShadow: ' 2px 5px 1em 0.1em rgb(211,211,211, 0.5)',
   },
-  followers: {
-    position: 'fixed',
-    display: 'fixed',
-    minWidth: '340px',
-  },
   root: {
     flexBasis: '25%',
   },

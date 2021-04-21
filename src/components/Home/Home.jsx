@@ -6,6 +6,7 @@ import useStyles from './HomeStyle';
 import axios from 'axios';
 import ScrollToTop from './../ScrollToTop/ScrollToTop';
 import sortPosts from '../HelperFunctions/sortPosts';
+import Suggestions from '../SuggestionsForYou/Suggestions';
 
 const Home = ({ clearToken }) => {
   const classes = useStyles();
@@ -53,18 +54,7 @@ const Home = ({ clearToken }) => {
             root: classes.root,
           }}
         >
-          <Hidden smDown>
-            <Grid className={classes.followers} item>
-              <h3 align="left">Suggestions For You</h3>
-              <div align="left">
-                <p>Hey you should follow me!</p>
-                <p>or maybe me</p>
-                <p>i'm a cool person</p>
-                <p>don't forget me</p>
-                <p>save the best for last!</p>
-              </div>
-            </Grid>
-          </Hidden>
+          <Suggestions />
         </Grid>
         <Hidden mdDown>
           <Grid item lg={2}></Grid>
