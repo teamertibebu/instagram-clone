@@ -3,13 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-// const User = require('./database/Models/User');
-// const Post = require('./database/Models/Post');
 const { User, Post } = require('./database/db');
 const sequelize = require('./database/connection');
-const { Op } = require('sequelize');
-
-const uploadFile = require('./s3Upload');
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));

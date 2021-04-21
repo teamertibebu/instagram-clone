@@ -4,6 +4,8 @@ import Navbar from '../NavBar/Navbar';
 import Post from '../Post/Post';
 import useStyles from './HomeStyle';
 import axios from 'axios';
+import ScrollToTop from './../ScrollToTop/ScrollToTop';
+import sortPosts from '../HelperFunctions/sortPosts';
 
 const Home = ({ clearToken }) => {
   const classes = useStyles();
@@ -11,18 +13,7 @@ const Home = ({ clearToken }) => {
 
   useEffect(() => {
     axios.get('/getAllPosts').then(({ data }) => {
-      data.forEach((post) => {
-        post.createdAt = new Date(post.createdAt);
-      });
-
-      data = data.sort((a, b) => {
-        const timeb = b.createdAt.getTime();
-        const timea = a.createdAt.getTime();
-
-        return timeb - timea;
-      });
-
-      setPosts(data);
+      sortPosts(setPosts, data);
     });
   }, []);
 
@@ -79,6 +70,7 @@ const Home = ({ clearToken }) => {
           <Grid item lg={2}></Grid>
         </Hidden>
       </Grid>
+      <ScrollToTop />
     </div>
   );
 };

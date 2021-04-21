@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import useStyles from './ModalStyle';
 import axios from 'axios';
 import ProgressBar from '../../ProgressBar/ProgressBar';
+import sortPosts from '../../HelperFunctions/sortPosts';
 
 const ModalBody = ({ setOpen, setPosts }) => {
   const [imageURL, setImageURL] = useState();
@@ -41,17 +42,7 @@ const ModalBody = ({ setOpen, setPosts }) => {
       })
       .then(() => {
         axios.get('/getAllPosts').then(({ data }) => {
-          data.forEach((post) => {
-            post.createdAt = new Date(post.createdAt);
-          });
-
-          data = data.sort((a, b) => {
-            const timeb = b.createdAt.getTime();
-            const timea = a.createdAt.getTime();
-
-            return timeb - timea;
-          });
-          setPosts(data);
+          sortPosts(setPosts, data);
         });
       });
   };
