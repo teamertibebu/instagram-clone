@@ -5,7 +5,6 @@ import {
   IconButton,
   InputBase,
   Grid,
-  Typography,
   Menu,
   MenuItem,
   Hidden,
@@ -21,13 +20,14 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './NavBarStyle';
-import ModalBody from './Modal/Modal';
+import ModalBody from '../Modal/Modal';
 import Logo from './../../logo.png';
 
 const Navbar = ({ clearToken, setPosts }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuBarAnchor, setMenuBarAnchor] = useState();
   const [open, setOpen] = useState(false);
+  console.log('THIRD', setPosts);
 
   const classes = useStyles();
 

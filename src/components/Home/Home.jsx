@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Hidden } from '@material-ui/core';
-import Navbar from '../NavBar/Navbar';
 import Post from '../Post/Post';
 import useStyles from './HomeStyle';
-import axios from 'axios';
 import ScrollToTop from './../ScrollToTop/ScrollToTop';
-import sortPosts from '../HelperFunctions/sortPosts';
 import Suggestions from '../SuggestionsForYou/Suggestions';
 
-const Home = ({ clearToken }) => {
+const Home = ({ clearToken, posts }) => {
   const classes = useStyles();
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    axios.get('/getAllPosts').then(({ data }) => {
-      sortPosts(setPosts, data);
-    });
-  }, []);
 
   return (
     <div>
-      <Navbar clearToken={clearToken} setPosts={setPosts} />
       <Grid container className={classes.postContainer} spacing={2}>
         <Hidden mdDown>
           <Grid item lg={2}></Grid>

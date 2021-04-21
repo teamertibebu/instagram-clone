@@ -3,8 +3,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import { useState, useRef } from 'react';
 import useStyles from './ModalStyle';
 import axios from 'axios';
-import ProgressBar from '../../ProgressBar/ProgressBar';
-import sortPosts from '../../HelperFunctions/sortPosts';
+import ProgressBar from '../ProgressBar/ProgressBar';
+import sortPosts from '../HelperFunctions/sortPosts';
 
 const ModalBody = ({ setOpen, setPosts }) => {
   const [imageURL, setImageURL] = useState();
@@ -42,6 +42,7 @@ const ModalBody = ({ setOpen, setPosts }) => {
       })
       .then(() => {
         axios.get('/getAllPosts').then(({ data }) => {
+          console.log('SECOND', setPosts);
           sortPosts(setPosts, data);
         });
       });

@@ -1,4 +1,5 @@
 const sortPosts = (setPosts, data) => {
+  console.log('SET POSTS', typeof setPosts);
   data.forEach((post) => {
     post.createdAt = new Date(post.createdAt);
   });
