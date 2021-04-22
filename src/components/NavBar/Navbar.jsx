@@ -1,20 +1,17 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
   IconButton,
-  InputBase,
   Grid,
   Menu,
   MenuItem,
   Hidden,
-  Modal,
-  Backdrop,
-  Fade,
   TextField,
   InputAdornment,
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import HomeIcon from '@material-ui/icons/Home';
@@ -22,8 +19,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import SearchIcon from '@material-ui/icons/Search';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MenuIcon from '@material-ui/icons/Menu';
+
 import useStyles from './NavBarStyle';
-import ModalBody from '../Modal/Modal';
+import AddPost from '../AddPost/AddPost';
 import Logo from './../../logo.png';
 
 const Navbar = ({ clearToken, setPosts }) => {
@@ -33,14 +31,6 @@ const Navbar = ({ clearToken, setPosts }) => {
 
   const classes = useStyles();
   const history = useHistory();
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <AppBar className={classes.appBar}>
@@ -94,18 +84,12 @@ const Navbar = ({ clearToken, setPosts }) => {
               <Grid container spacing={0} className={classes.icons}>
                 <Hidden smDown>
                   <Grid item xs={1}>
-                    <AddBoxIcon onClick={handleOpen} />
-                    <Modal
+                    <AddBoxIcon onClick={() => setOpen(true)} />
+                    <AddPost
+                      setOpen={setOpen}
                       open={open}
-                      onClose={handleClose}
-                      BackdropComponent={Backdrop}
-                      BackdropProps={{ timeout: 500 }}
-                      closeAfterTransition
-                    >
-                      <Fade in={open} timeout={500}>
-                        <ModalBody setOpen={setOpen} setPosts={setPosts} />
-                      </Fade>
-                    </Modal>
+                      setPosts={setPosts}
+                    />
                   </Grid>
                   <Grid item xs={1}>
                     <HomeIcon />
