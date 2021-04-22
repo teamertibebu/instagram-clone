@@ -13,7 +13,7 @@ import axios from 'axios';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import sortPosts from '../HelperFunctions/sortPosts';
 
-const AddPost = ({ setOpen, setPosts, open }) => {
+const AddPost = ({ setOpen, setPosts, open, viewportWidth }) => {
   const [imageURL, setImageURL] = useState();
   const [caption, setCaption] = useState();
   const [file, setFile] = useState();
@@ -24,7 +24,7 @@ const AddPost = ({ setOpen, setPosts, open }) => {
 
   const types = ['image/png', 'image/jpeg'];
 
-  const classes = useStyles();
+  const classes = useStyles({ viewportWidth });
 
   const handleClose = () => {
     setOpen(false);
@@ -121,7 +121,7 @@ const AddPost = ({ setOpen, setPosts, open }) => {
               onChange={(e) => setCaption(e.target.value)}
             />
           </Grid>
-          <div className="output">
+          <Grid item xs={12} className="output">
             {error && <div className="error">{error}</div>}
             {file && (
               <ProgressBar
@@ -130,7 +130,7 @@ const AddPost = ({ setOpen, setPosts, open }) => {
                 setFile={setFile}
               />
             )}
-          </div>
+          </Grid>
           <Grid item xs={12}>
             <Button
               style={{ width: '100%' }}

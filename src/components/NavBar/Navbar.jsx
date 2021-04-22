@@ -20,7 +20,6 @@ import Icons from '../Icons/Icons.jsx';
 const Navbar = ({ clearToken, setPosts }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  console.log(viewportWidth);
   const classes = useStyles();
   const history = useHistory();
 
@@ -46,7 +45,7 @@ const Navbar = ({ clearToken, setPosts }) => {
             container
             direction="column"
             justify="center"
-            alignItems={viewportWidth < 600 ? 'left' : 'center'}
+            alignItems={viewportWidth < 600 ? 'flex-start' : 'center'}
             xl={3}
             lg={3}
             md={4}

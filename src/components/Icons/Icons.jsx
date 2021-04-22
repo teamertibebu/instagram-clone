@@ -25,7 +25,12 @@ const Icons = ({ viewportWidth, setPosts, setAnchorEl }) => {
         <IconButton onClick={() => setOpen(true)}>
           <AddBoxIcon />
         </IconButton>
-        <AddPost setOpen={setOpen} open={open} setPosts={setPosts} />
+        <AddPost
+          viewportWidth={viewportWidth}
+          setOpen={setOpen}
+          open={open}
+          setPosts={setPosts}
+        />
       </Grid>
       <Grid item xs={1}>
         <IconButton>
@@ -43,8 +48,8 @@ const Icons = ({ viewportWidth, setPosts, setAnchorEl }) => {
         </IconButton>
       </Grid>
       <Grid item xs={1}>
-        <IconButton>
-          <AccountCircleIcon onClick={(e) => setAnchorEl(e.currentTarget)} />
+        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+          <AccountCircleIcon />
         </IconButton>
       </Grid>
     </Grid>
