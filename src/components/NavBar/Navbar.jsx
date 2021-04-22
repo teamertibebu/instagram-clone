@@ -28,7 +28,7 @@ const Navbar = ({ clearToken, setPosts }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuBarAnchor, setMenuBarAnchor] = useState();
   const [open, setOpen] = useState(false);
-  console.log('THIRD', setPosts);
+  const [href, setHref] = useState(window.location.href);
 
   const classes = useStyles();
   const history = useHistory();
@@ -39,6 +39,11 @@ const Navbar = ({ clearToken, setPosts }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleHome = () => {
+    history.push('/home');
+    setHref(window.location.href);
   };
 
   return (
@@ -60,7 +65,11 @@ const Navbar = ({ clearToken, setPosts }) => {
                   src={Logo}
                   alt="logo"
                   className={classes.logo}
-                  onClick={() => history.push('/')}
+                  onClick={() => {
+                    !href.includes('home')
+                      ? handleHome()
+                      : document.location.reload();
+                  }}
                 />
               </Grid>
             </Hidden>
