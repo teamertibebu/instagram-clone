@@ -10,8 +10,15 @@ import {
   TextField,
   InputAdornment,
   Typography,
+  IconButton,
 } from '@material-ui/core';
-import { AccountCircle, LockRounded, AlternateEmail } from '@material-ui/icons';
+import {
+  AccountCircle,
+  LockRounded,
+  AlternateEmail,
+  Visibility,
+  VisibilityOff,
+} from '@material-ui/icons';
 import brandImg from '../../brand.png';
 import logo from '../../logo.png';
 
@@ -26,6 +33,7 @@ const CreateAccount = ({ setToken, setForm }) => {
   const [userAvailable, setUserAvailable] = useState();
   const [emailError, setEmailError] = useState();
   const [usernameError, setUsernameError] = useState();
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
   localStorage.setItem('username', username);
 
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/gi;
@@ -106,13 +114,22 @@ const CreateAccount = ({ setToken, setForm }) => {
             />
             <TextField
               required
-              type="password"
+              type={passwordVisibility ? null : 'password'}
               label="Password"
               margin="normal"
               InputProps={{
                 startAdornment: (
                   <InputAdornment>
                     <LockRounded />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment>
+                    <IconButton
+                      onClick={() => setPasswordVisibility(!passwordVisibility)}
+                    >
+                      {passwordVisibility ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}

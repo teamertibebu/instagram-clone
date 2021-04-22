@@ -5,6 +5,7 @@ import {
   InputAdornment,
   Typography,
   Hidden,
+  IconButton,
 } from '@material-ui/core';
 import { useState } from 'react';
 import axios from 'axios';
@@ -12,12 +13,19 @@ import loginUser from '../HelperFunctions/loginUser.js';
 import useStyles from './SignInStyle';
 import brandImg from '../../brand.png';
 import logo from '../../logo.png';
-import { AccountCircle, LockRounded } from '@material-ui/icons';
+import {
+  AccountCircle,
+  LockRounded,
+  Visibility,
+  VisibilityOff,
+} from '@material-ui/icons';
 
 const SignIn = ({ setToken, setForm }) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [loginSuccess, setLoginSuccess] = useState();
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
   const classes = useStyles();
   localStorage.setItem('username', username);
 
@@ -70,12 +78,22 @@ const SignIn = ({ setToken, setForm }) => {
               onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
+              type={passwordVisibility ? null : 'password'}
               label="Password"
               margin="normal"
               InputProps={{
                 startAdornment: (
                   <InputAdornment>
                     <LockRounded />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment>
+                    <IconButton
+                      onClick={() => setPasswordVisibility(!passwordVisibility)}
+                    >
+                      {passwordVisibility ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
