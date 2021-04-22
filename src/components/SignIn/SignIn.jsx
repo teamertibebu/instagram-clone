@@ -66,6 +66,7 @@ const SignIn = ({ setToken, setForm }) => {
               <img src={logo} alt="logo" className={classes.logo} />
             </Grid>
             <TextField
+              autoComplete="new-password"
               label="Username"
               margin="normal"
               InputProps={{
@@ -78,6 +79,7 @@ const SignIn = ({ setToken, setForm }) => {
               onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
+              autoComplete="new-password"
               type={passwordVisibility ? null : 'password'}
               label="Password"
               margin="normal"

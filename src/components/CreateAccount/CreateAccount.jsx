@@ -100,6 +100,7 @@ const CreateAccount = ({ setToken, setForm }) => {
               <img src={logo} alt="logo" className={classes.logo} />
             </Grid>
             <TextField
+              autoComplete="new-password"
               required
               label="Username"
               margin="normal"
@@ -113,6 +114,7 @@ const CreateAccount = ({ setToken, setForm }) => {
               onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
+              autoComplete="new-password"
               required
               type={passwordVisibility ? null : 'password'}
               label="Password"
