@@ -31,8 +31,8 @@ const App = () => {
 
   return (
     <div className="wrapper">
-      <Navbar setPosts={setPosts} clearToken={clearToken} />
       <BrowserRouter>
+        <Navbar setPosts={setPosts} clearToken={clearToken} />
         <Switch>
           <Route exact path="/">
             <Home clearToken={clearToken} posts={posts} />

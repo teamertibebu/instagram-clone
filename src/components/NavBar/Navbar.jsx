@@ -12,6 +12,7 @@ import {
   Backdrop,
   Fade,
 } from '@material-ui/core';
+import { Link, useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import HomeIcon from '@material-ui/icons/Home';
@@ -30,6 +31,7 @@ const Navbar = ({ clearToken, setPosts }) => {
   console.log('THIRD', setPosts);
 
   const classes = useStyles();
+  const history = useHistory();
 
   const handleOpen = () => {
     setOpen(true);
@@ -54,7 +56,12 @@ const Navbar = ({ clearToken, setPosts }) => {
                 xs={3}
                 className={classes.imageGrid}
               >
-                <img src={Logo} alt="logo" className={classes.logo} />
+                <img
+                  src={Logo}
+                  alt="logo"
+                  className={classes.logo}
+                  onClick={() => history.push('/')}
+                />
               </Grid>
             </Hidden>
             <Grid item lg={5} md={5} sm={6} xs={6} className={classes.search}>
