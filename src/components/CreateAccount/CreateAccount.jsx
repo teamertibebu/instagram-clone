@@ -129,6 +129,7 @@ const CreateAccount = ({ setToken, setForm }) => {
                   <InputAdornment>
                     <IconButton
                       onClick={() => setPasswordVisibility(!passwordVisibility)}
+                      tabIndex="-1"
                     >
                       {passwordVisibility ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
