@@ -4,6 +4,9 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     position: 'absolute',
     width: '110px',
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   appBar: {
     boxShadow: 'none',
