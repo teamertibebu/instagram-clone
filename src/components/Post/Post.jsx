@@ -23,11 +23,11 @@ const Post = ({ post }) => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid xs={7}></Grid>
+        <Grid item xs={7}></Grid>
       </Grid>
-      <div xs={12} className={classes.imageContainer}>
+      <Grid xs={12}>
         <img className={classes.img} alt="post" src={image} />
-      </div>
+      </Grid>
       <Grid item xs={12}>
         <Typography>
           <strong className={classes.usernameInCaption}>{username}</strong>
