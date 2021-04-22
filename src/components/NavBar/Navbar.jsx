@@ -8,7 +8,7 @@ import {
   MenuItem,
   TextField,
   InputAdornment,
-  IconButton,
+  Hidden,
 } from '@material-ui/core';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -57,7 +57,7 @@ const Navbar = ({ clearToken, setPosts }) => {
             lg={3}
             md={4}
             sm={3}
-            xs={4}
+            xs={1}
           >
             <img
               src={Logo}
@@ -82,18 +82,20 @@ const Navbar = ({ clearToken, setPosts }) => {
             sm={4}
             xs={6}
           >
-            <TextField
-              variant="outlined"
-              size="small"
-              placeholder=" Search..."
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment>
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <Hidden xsDown>
+              <TextField
+                variant="outlined"
+                size="small"
+                placeholder=" Search..."
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment>
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Hidden>
           </Grid>
           <Icons
             viewportWidth={viewportWidth}

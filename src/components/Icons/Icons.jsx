@@ -20,37 +20,35 @@ const Icons = ({ viewportWidth, setPosts, setAnchorEl, setMenuBarAnchor }) => {
       lg={2}
       md={3}
       sm={4}
-      xs={2}
+      xs={5}
     >
-      <Hidden xsDown>
-        <Grid item xs={1}>
-          <IconButton onClick={() => setOpen(true)}>
-            <AddBoxIcon />
-          </IconButton>
-          <AddPost setOpen={setOpen} open={open} setPosts={setPosts} />
-        </Grid>
-        <Grid item xs={1}>
-          <IconButton>
-            <HomeIcon />
-          </IconButton>
-        </Grid>
-        <Grid item xs={1}>
-          <IconButton>
-            <FavoriteIcon />
-          </IconButton>
-        </Grid>
-        <Grid item xs={1}>
-          <IconButton>
-            <EmailIcon />
-          </IconButton>
-        </Grid>
-        <Grid item xs={1}>
-          <IconButton>
-            <AccountCircleIcon onClick={(e) => setAnchorEl(e.currentTarget)} />
-          </IconButton>
-        </Grid>
-      </Hidden>
-      <Hidden smUp>
+      <Grid item xs={1}>
+        <IconButton onClick={() => setOpen(true)}>
+          <AddBoxIcon />
+        </IconButton>
+        <AddPost setOpen={setOpen} open={open} setPosts={setPosts} />
+      </Grid>
+      <Grid item xs={1}>
+        <IconButton>
+          <HomeIcon />
+        </IconButton>
+      </Grid>
+      <Grid item xs={1}>
+        <IconButton>
+          <FavoriteIcon />
+        </IconButton>
+      </Grid>
+      <Grid item xs={1}>
+        <IconButton>
+          <EmailIcon />
+        </IconButton>
+      </Grid>
+      <Grid item xs={1}>
+        <IconButton>
+          <AccountCircleIcon onClick={(e) => setAnchorEl(e.currentTarget)} />
+        </IconButton>
+      </Grid>
+      <Hidden xsUp>
         <Grid item xs={12} align="right">
           <IconButton>
             <MenuIcon onClick={(e) => setMenuBarAnchor(e.currentTarget)} />
