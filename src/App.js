@@ -34,11 +34,14 @@ const App = () => {
       <BrowserRouter>
         <Navbar setPosts={setPosts} clearToken={clearToken} />
         <Switch>
-          <Route exact path="/home">
+          <Route exact path={'/home'}>
             <Home clearToken={clearToken} posts={posts} />
           </Route>
           <Route exact path="/profile">
             <Profile />
+          </Route>
+          <Route exact path={'/'}>
+            <Home clearToken={clearToken} posts={posts} />
           </Route>
         </Switch>
       </BrowserRouter>

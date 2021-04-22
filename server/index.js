@@ -84,6 +84,10 @@ app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+app.get('*', (req, res) => {
+  res.sendStatus(404);
+});
+
 app.listen(process.env.PORT || 8080, () => {
   console.log('Server connected!');
 });
