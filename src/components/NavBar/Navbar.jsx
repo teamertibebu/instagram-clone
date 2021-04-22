@@ -12,7 +12,7 @@ import {
   Backdrop,
   Fade,
 } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import HomeIcon from '@material-ui/icons/Home';
@@ -28,7 +28,6 @@ const Navbar = ({ clearToken, setPosts }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuBarAnchor, setMenuBarAnchor] = useState();
   const [open, setOpen] = useState(false);
-  const [href, setHref] = useState(window.location.href);
 
   const classes = useStyles();
   const history = useHistory();
@@ -39,11 +38,6 @@ const Navbar = ({ clearToken, setPosts }) => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleHome = () => {
-    history.push('/home');
-    setHref(window.location.href);
   };
 
   return (
@@ -65,11 +59,11 @@ const Navbar = ({ clearToken, setPosts }) => {
                   src={Logo}
                   alt="logo"
                   className={classes.logo}
-                  onClick={() => {
-                    !href.includes('home')
-                      ? handleHome()
-                      : document.location.reload();
-                  }}
+                  onClick={() =>
+                    window.location.href.includes('home')
+                      ? window.scrollTo({ top: 0, behavior: 'smooth' })
+                      : history.push('/home')
+                  }
                 />
               </Grid>
             </Hidden>
@@ -146,7 +140,14 @@ const Navbar = ({ clearToken, setPosts }) => {
             open={Boolean(anchorEl)}
             onClose={() => setAnchorEl(null)}
           >
-            <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
+            <MenuItem
+              onClick={() => {
+                setAnchorEl(null);
+                history.push('/profile');
+              }}
+            >
+              Profile
+            </MenuItem>
             <MenuItem onClick={() => setAnchorEl(null)}>My Account</MenuItem>
             <MenuItem onClick={() => clearToken()}>Sign Out</MenuItem>
           </Menu>
