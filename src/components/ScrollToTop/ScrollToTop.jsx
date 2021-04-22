@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import useStyles from './ScrollToTopStyle';
 

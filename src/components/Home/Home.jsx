@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Grid, Hidden } from '@material-ui/core';
 import Post from '../Post/Post';
 import useStyles from './HomeStyle';
