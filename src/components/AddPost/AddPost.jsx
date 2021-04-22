@@ -28,6 +28,7 @@ const AddPost = ({ setOpen, setPosts, open, viewportWidth }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setImageURL(null);
   };
 
   const handleFileUpload = (e) => {

@@ -22,9 +22,7 @@ const ProgressBar = ({ file, setFile, setImageURL }) => {
         backgroundColor: 'pink',
         marginTop: '20px',
       }}
-    >
-      Progress
-    </div>
+    />
   );
 };
 
