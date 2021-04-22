@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Hidden, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Grid, IconButton } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import HomeIcon from '@material-ui/icons/Home';
@@ -8,7 +7,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 import AddPost from '../AddPost/AddPost';
 
-const Icons = ({ viewportWidth, setPosts, setAnchorEl, setMenuBarAnchor }) => {
+const Icons = ({ viewportWidth, setPosts, setAnchorEl }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -48,13 +47,6 @@ const Icons = ({ viewportWidth, setPosts, setAnchorEl, setMenuBarAnchor }) => {
           <AccountCircleIcon onClick={(e) => setAnchorEl(e.currentTarget)} />
         </IconButton>
       </Grid>
-      <Hidden xsUp>
-        <Grid item xs={12} align="right">
-          <IconButton>
-            <MenuIcon onClick={(e) => setMenuBarAnchor(e.currentTarget)} />
-          </IconButton>
-        </Grid>
-      </Hidden>
     </Grid>
   );
 };
