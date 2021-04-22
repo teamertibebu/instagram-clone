@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -28,154 +28,188 @@ const Navbar = ({ clearToken, setPosts }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuBarAnchor, setMenuBarAnchor] = useState();
   const [open, setOpen] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  console.log(viewportWidth);
 
   const classes = useStyles();
   const history = useHistory();
 
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
   return (
     <AppBar className={classes.appBar}>
       <Toolbar>
-        <IconButton className={classes.root} disableRipple>
-          <Grid container spacing={10} className={classes.container}>
-            <Hidden smDown>
-              <Grid
-                item
-                align="left"
-                lg={2}
-                md={2}
-                sm={3}
-                xs={3}
-                className={classes.imageGrid}
-              >
-                <img
-                  src={Logo}
-                  alt="Instagram Logo"
-                  className={classes.logo}
-                  onClick={() =>
-                    window.location.href.includes('home')
-                      ? window.scrollTo({ top: 0, behavior: 'smooth' })
-                      : history.push('/home')
-                  }
-                />
+        <Grid container>
+          <Grid item xl={0} lg={1} md={0} sm={0} xs={0}></Grid>
+          <Grid
+            item
+            container
+            direction="column"
+            justify="center"
+            alignItems={viewportWidth < 600 ? 'left' : 'center'}
+            xl={3}
+            lg={3}
+            md={4}
+            sm={3}
+            xs={4}
+          >
+            <img
+              src={Logo}
+              alt="Instagram Logo"
+              className={classes.logo}
+              onClick={() =>
+                window.location.href.includes('home')
+                  ? window.scrollTo({ top: 0, behavior: 'smooth' })
+                  : history.push('/home')
+              }
+            />
+          </Grid>
+          <Grid
+            item
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            xl={2}
+            lg={3}
+            md={3}
+            sm={4}
+            xs={6}
+          >
+            <TextField
+              variant="outlined"
+              size="small"
+              placeholder=" Search..."
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment>
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid
+            item
+            container
+            justify={viewportWidth < 1920 ? 'space-evenly' : 'center'}
+            xl={3}
+            lg={2}
+            md={3}
+            sm={4}
+            xs={2}
+          >
+            <Hidden xsDown>
+              <Grid item xs={1}>
+                <IconButton>
+                  <AddBoxIcon onClick={() => setOpen(true)} />
+                </IconButton>
+                <AddPost setOpen={setOpen} open={open} setPosts={setPosts} />
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton>
+                  <HomeIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton>
+                  <FavoriteIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton>
+                  <EmailIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton>
+                  <AccountCircleIcon
+                    onClick={(e) => setAnchorEl(e.currentTarget)}
+                  />
+                </IconButton>
               </Grid>
             </Hidden>
-            <Grid item lg={5} md={5} sm={6} xs={6}>
-              <TextField
-                variant="outlined"
-                size="small"
-                placeholder=" Search..."
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment>
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid
-              item
-              lg={5}
-              md={5}
-              sm={6}
-              xs={3}
-              className={classes.iconContainer}
-            >
-              <Grid container spacing={0} className={classes.icons}>
-                <Hidden smDown>
-                  <Grid item xs={1}>
-                    <AddBoxIcon onClick={() => setOpen(true)} />
-                    <AddPost
-                      setOpen={setOpen}
-                      open={open}
-                      setPosts={setPosts}
-                    />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <HomeIcon />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <FavoriteIcon />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <EmailIcon />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <AccountCircleIcon
-                      onClick={(e) => setAnchorEl(e.currentTarget)}
-                    />
-                  </Grid>
-                </Hidden>
-                <Hidden mdUp>
-                  <Grid item>
-                    <MenuIcon
-                      onClick={(e) => setMenuBarAnchor(e.currentTarget)}
-                    />
-                  </Grid>
-                </Hidden>
+            <Hidden smUp>
+              <Grid item xs={12} align="right">
+                <IconButton>
+                  <MenuIcon
+                    onClick={(e) => setMenuBarAnchor(e.currentTarget)}
+                  />
+                </IconButton>
               </Grid>
-            </Grid>
+            </Hidden>
           </Grid>
-          <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+          <Grid item xl={3} lg={3} md={2} sm={1} xs={0}></Grid>
+        </Grid>
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={Boolean(anchorEl)}
+          onClose={() => setAnchorEl(null)}
+        >
+          <MenuItem
+            onClick={() => {
+              setAnchorEl(null);
+              history.push('/profile');
             }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={Boolean(anchorEl)}
-            onClose={() => setAnchorEl(null)}
           >
-            <MenuItem
-              onClick={() => {
-                setAnchorEl(null);
-                history.push('/profile');
-              }}
-            >
-              Profile
-            </MenuItem>
-            <MenuItem onClick={() => setAnchorEl(null)}>My Account</MenuItem>
-            <MenuItem onClick={() => clearToken()}>Sign Out</MenuItem>
-          </Menu>
-          <Menu
-            anchorEl={menuBarAnchor}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={Boolean(menuBarAnchor)}
-            onClose={() => setMenuBarAnchor(null)}
-          >
-            <MenuItem>
-              <AddBoxIcon />
-              Post
-            </MenuItem>
-            <MenuItem>
-              <HomeIcon />
-              Home
-            </MenuItem>
-            <MenuItem>
-              <FavoriteIcon />
-              Likes
-            </MenuItem>
-            <MenuItem>
-              <EmailIcon /> Messages
-            </MenuItem>
-            <MenuItem>
-              <AccountCircleIcon />
-              Account
-            </MenuItem>
-          </Menu>
-        </IconButton>
+            Profile
+          </MenuItem>
+          <MenuItem onClick={() => setAnchorEl(null)}>My Account</MenuItem>
+          <MenuItem onClick={() => clearToken()}>Sign Out</MenuItem>
+        </Menu>
+        <Menu
+          anchorEl={menuBarAnchor}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={Boolean(menuBarAnchor)}
+          onClose={() => setMenuBarAnchor(null)}
+        >
+          <MenuItem>
+            <AddBoxIcon />
+            Post
+          </MenuItem>
+          <MenuItem>
+            <HomeIcon />
+            Home
+          </MenuItem>
+          <MenuItem>
+            <FavoriteIcon />
+            Likes
+          </MenuItem>
+          <MenuItem>
+            <EmailIcon /> Messages
+          </MenuItem>
+          <MenuItem>
+            <AccountCircleIcon />
+            Account
+          </MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );
