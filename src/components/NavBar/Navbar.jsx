@@ -11,6 +11,8 @@ import {
   Modal,
   Backdrop,
   Fade,
+  TextField,
+  InputAdornment,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -57,7 +59,7 @@ const Navbar = ({ clearToken, setPosts }) => {
               >
                 <img
                   src={Logo}
-                  alt="logo"
+                  alt="Instagram Logo"
                   className={classes.logo}
                   onClick={() =>
                     window.location.href.includes('home')
@@ -67,14 +69,18 @@ const Navbar = ({ clearToken, setPosts }) => {
                 />
               </Grid>
             </Hidden>
-            <Grid item lg={5} md={5} sm={6} xs={6} className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                color="secondary"
+            <Grid item lg={5} md={5} sm={6} xs={6}>
+              <TextField
+                variant="outlined"
+                size="small"
                 placeholder=" Search..."
-                className={classes.inputInput}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment>
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid

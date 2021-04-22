@@ -1,34 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  inputInput: {
-    padding: theme.spacing(0, 1, 0, 0),
-    width: '50%',
-    paddingLeft: '25px',
-    border: '1px solid lightgrey',
-    backgroundColor: 'lightgrey',
-    opacity: '50%',
-    borderRadius: '10px',
-  },
-  searchIcon: {
-    position: 'absolute',
-    padding: theme.spacing(0.5, 0.2, 3, 13),
-    zIndex: '1',
-  },
   logo: {
     position: 'absolute',
-    width: '100px',
-    top: '40%',
-    margin: '0',
-    padding: '0',
+    width: '110px',
+    top: '39%',
   },
   imageGrid: {
     position: 'relative',
     height: '100%',
   },
-  search: {
-    width: '30%',
-  },
+
   appBar: {
     backgroundColor: 'white',
     boxShadow: 'none',
