@@ -7,7 +7,7 @@ const { User, Post } = require('./database/db');
 const sequelize = require('./database/connection');
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static('build'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
