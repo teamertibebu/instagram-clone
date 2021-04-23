@@ -13,7 +13,9 @@ import axios from 'axios';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import sortPosts from '../HelperFunctions/sortPosts';
 
-const AddPost = ({ setOpen, setPosts, open, viewportWidth }) => {
+const AddPost = (props) => {
+  const { setOpen, setPosts, open, viewportWidth } = props;
+
   const [imageURL, setImageURL] = useState();
   const [caption, setCaption] = useState();
   const [file, setFile] = useState();
@@ -56,7 +58,6 @@ const AddPost = ({ setOpen, setPosts, open, viewportWidth }) => {
       })
       .then(() => {
         axios.get('/getAllPosts').then(({ data }) => {
-          console.log('SECOND', setPosts);
           sortPosts(setPosts, data);
         });
       });

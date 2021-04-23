@@ -6,12 +6,8 @@ const useStyles = makeStyles((styles) => {
       backgroundColor: 'white',
       border: '2px solid black',
       padding: '10px',
-      maxWidth: ({ viewportWidth }) =>
-        viewportWidth >= 550 ? '400px' : '90vw',
-      maxHeight: ({ viewportWidth }) =>
-        viewportWidth >= 550 ? '400px' : '90vh',
-      width: ({ viewportWidth }) => (viewportWidth >= 550 ? '400px' : '90vw'),
-      height: '60vh',
+      width: ({ viewportWidth }) => (viewportWidth >= 540 ? '400px' : '90vw'),
+      height: '370px',
       position: 'absolute',
       left: '50%',
       top: '50%',
