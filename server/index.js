@@ -5,11 +5,43 @@ const app = express();
 const cors = require('cors');
 const { User, Post } = require('./database/db');
 const sequelize = require('./database/connection');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const connectRedis = require('connect-redis');
+
+const RedisStore = connectRedis(session);
+const redisClient = require('redis').createClient({
+  host: 'localhost',
+  port: 6379,
+});
+
+redisClient.on('connect', function () {
+  console.log('Connected to Redis');
+});
+
+redisClient.on('error', function (err) {
+  console.log('Redis error: ' + err);
+});
 
 app.use(cors());
 app.use(express.static('build'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      httpOnly: false,
+      maxAge: 1000 * 60 * 10,
+    },
+  })
+);
 
 app.use('/login', (req, res) => {
   res.send({
