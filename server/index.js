@@ -34,7 +34,7 @@ app.use(
     store: new RedisStore({ client: redisClient }),
     secret: 'secret',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
       secure: false,
       httpOnly: false,
