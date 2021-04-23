@@ -33,7 +33,7 @@ const SignIn = ({ setToken, setForm }) => {
     e.preventDefault();
 
     axios
-      .post('/signIn', { username, password })
+      .get('/signIn', { params: { username, password } })
       .then(({ data }) => data)
       .then(({ passwordCorrect, usernameFound }) => {
         if (usernameFound && passwordCorrect) {

@@ -44,8 +44,8 @@ app.post('/addPost', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.post('/signIn', (req, res) => {
-  const { username, password } = req.body;
+app.get('/signIn', (req, res) => {
+  const { username, password } = req.query;
 
   User.findAll({
     attributes: ['password'],
