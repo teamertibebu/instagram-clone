@@ -8,6 +8,7 @@ const sequelize = require('./database/connection');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const connectRedis = require('connect-redis');
+const { passwordRouter } = require('./routes/password');
 
 const RedisStore = connectRedis(session);
 const redisClient = require('redis').createClient({
@@ -28,6 +29,7 @@ app.use(express.static('build'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use('/forgotPassword', passwordRouter);
 
 app.use(
   session({
